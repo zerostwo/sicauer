@@ -1,0 +1,6 @@
+app/__pycache__/
+venv/
+.idea/
+.git/
+app/site.db
+.gitignore
