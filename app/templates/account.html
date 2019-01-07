@@ -1,5 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
-    <legend class="border-bottom">{{ current_user.username }}</legend>
+    <br>
+    <div class="media">
+        <img class="rounded account-img" src="{{ url_for('static', filename='favicon.ico') }}">
+        <div class="media-body">
+            <h2 class="account-heading">{{ current_user.username }}</h2>
+            <p class="text-secondary">{{ current_user.email }}</p>
+        </div>
+    </div>
 
 {% endblock %}
