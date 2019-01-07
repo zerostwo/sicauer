@@ -1,21 +1,22 @@
 {% extends "layout.html" %}
 {% block content %}
-        {% for post in posts %}
-            <div class="card">
-                <div class="card-header">
-                    {{ post.title }}
-                </div>
-                <div class="card-body">
-                    <blockquote class="blockquote mb-0">
-                        <p>{{ post.content }}</p>
-                        <footer class="blockquote-footer"><cite title="Source Title">By {{ post.author }}
-                            on {{ post.date_post }}</cite>
-                        </footer>
-                    </blockquote>
-                </div>
+    <br>
+    {% for post in posts %}
+        <div class="card">
+            <div class="card-header">
+                {{ post.title }}
             </div>
-            <div class="border-bottom pt-3"></div>
-        {% endfor %}
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                    <p>{{ post.content }}</p>
+                    <footer class="blockquote-footer"><cite title="Source Title">By {{ post.author }}
+                        on {{ post.date_post }}</cite>
+                    </footer>
+                </blockquote>
+            </div>
+        </div>
+        <div class="border-bottom pt-3"></div>
+    {% endfor %}
     </div>
 {% endblock %}
 
