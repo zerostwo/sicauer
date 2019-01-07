@@ -9,8 +9,8 @@
             <div class="card-body">
                 <blockquote class="blockquote mb-0">
                     <p>{{ post.content }}</p>
-                    <footer class="blockquote-footer"><cite title="Source Title">By {{ post.author }}
-                        on {{ post.date_post }}</cite>
+                    <footer class="blockquote-footer"><cite title="Source Title">By {{ post.author.username }}
+                        on {{ post.date_posted.strftime('%Y-%m-%d %X') }}</cite>
                     </footer>
                 </blockquote>
             </div>
