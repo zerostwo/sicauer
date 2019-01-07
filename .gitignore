@@ -1,5 +1,5 @@
-__pycache__
+app/__pycache__/
 venv/
 .idea/
 .git/
-site.db
+app/site.db
