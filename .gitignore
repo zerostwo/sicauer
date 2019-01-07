@@ -3,4 +3,3 @@ venv/
 .idea/
 .git/
 app/site.db
-.gitignore
