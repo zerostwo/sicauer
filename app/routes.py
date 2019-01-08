@@ -2,8 +2,8 @@ import os
 import secrets
 from PIL import Image
 from app import app, db, bcrypt
-from flask import render_template, url_for, flash, redirect, request
-from app.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
+from flask import render_template, url_for, flash, redirect, request, abort
+from app.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm
 from app.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -100,4 +100,61 @@ def new_post():
         db.session.commit()
         flash('Your post has been created!', 'success')
         return redirect(url_for('home'))
-    return render_template('create_post.html', title='New Post', form=form)
+    return render_template('create_post.html', title='New Post', form=form, legend="New Post")
+
+
+@app.route("/post/<int:post_id>")
+def post(post_id):
+    post = Post.query.get_or_404(post_id)
+    return render_template('post.html', title=post.title, post=post)
+
+
+@app.route("/post/<int:post_id>/update/", methods=['GET', 'POST'])
+@login_required
+def update_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    if post.author != current_user:
+        abort(403)
+    form = PostForm()
+    if form.validate_on_submit():
+        post.title = form.title.data
+        post.content = form.content.data
+        db.session.commit()
+        flash('Your post has been updated!', 'success')
+        return redirect(url_for('post', post_id=post.id))
+    elif request.method == 'GET':
+        form.title.data = post.title
+        form.content.data = post.content
+    return render_template('create_post.html', title='Update Post', form=form, legend='Update Post')
+
+
+@app.route("/post/<int:post_id>/delete/", methods=['POST'])
+@login_required
+def delete_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    if post.author != current_user:
+        abort(403)
+    db.session.delete(post)
+    db.session.commit()
+    flash('Your post has been deleted!', 'success')
+    return redirect(url_for('home'))
+
+
+@app.route("/reset_password/", methods=['GET', "POST"])
+def reset_request():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    form = RequestResetForm()
+    return render_template('reset_request.html', title='Reset Password', form=form)
+
+
+@app.route("/reset_password/<token>", methods=['GET', "POST"])
+def reset_token(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    user = User.verify_reset_token(token)
+    if user is None:
+        flash('This is an invalid or expired token', 'waring')
+        return redirect(url_for('reset_request'))
+    form = ResetPasswordForm()
+    return render_template('reset_token.html', title='Reset Password', form=form)
