@@ -6,3 +6,4 @@ venv/
 .idea/
 .git/
 app/site.db
+app/static/profile_pics/
