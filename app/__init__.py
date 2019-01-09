@@ -4,6 +4,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
+from app.users.routes import users
+from app.posts.routes import posts
+from app.main.routes import main
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'aea9c1ddec6a9e7db162b41afbff9a6d'
@@ -23,4 +26,6 @@ app.config['MAIL_PASSWORD'] = '981211Dd'
 # app.config['MAIL_PASSWORD'] = os.environ.get('EMAIL_PASS')
 mail = Mail(app)
 
-from app import routes
+app.register_blueprint(users)
+app.register_blueprint(posts)
+app.register_blueprint(main)

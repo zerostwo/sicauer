@@ -32,11 +32,11 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{ url_for('home') }}">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{{ url_for('main.home') }}">Home <span class="sr-only">(current)</span></a>
                 </li>
                 {% if current_user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('new_post') }}"><b>New Post</b></a>
+                        <a class="nav-link" href="{{ url_for('posts.posts.new_post') }}"><b>New Post</b></a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -44,17 +44,17 @@
                             {{ current_user.username }}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ url_for('account') }}">Account</a>
+                            <a class="dropdown-item" href="{{ url_for('users.account') }}">Account</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ url_for('logout') }}">Sign out</a>
+                            <a class="dropdown-item" href="{{ url_for('users.logout') }}">Sign out</a>
                         </div>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('register') }}"><b>Register</b></a>
+                        <a class="nav-link" href="{{ url_for('users.register') }}"><b>Register</b></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+                        <a class="nav-link" href="{{ url_for('users.login') }}">Login</a>
                     </li>
                 {% endif %}
             </ul>
