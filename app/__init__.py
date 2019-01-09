@@ -17,8 +17,10 @@ login_manager.login_message_category = 'info'
 app.config['MAIL_SERVER'] = 'smtp.126.com'
 app.config['MAIL_PORT'] = 25
 app.config['MAIL_USER_TLS'] = True
-app.config['MAIL_USERNAME'] = os.environ.get('EMAIL_USER')
-app.config['MAIL_PASSWPRD'] = os.environ.get('EMAIL_PASS')
+app.config['MAIL_USERNAME'] = 'zerostwo@126.com'
+# app.config['MAIL_USERNAME'] = os.environ.get('EMAIL_USER')
+app.config['MAIL_PASSWORD'] = '981211Dd'
+# app.config['MAIL_PASSWORD'] = os.environ.get('EMAIL_PASS')
 mail = Mail(app)
 
 from app import routes
