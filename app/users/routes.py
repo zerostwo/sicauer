@@ -45,7 +45,7 @@ def logout():
     return redirect(url_for('main.home'))
 
 
-@app.route('/account/', methods=['GET', 'POST'])
+@users.route('/account/', methods=['GET', 'POST'])
 @login_required
 def account():
     form = UpdateAccountForm()

@@ -36,7 +36,7 @@
                 </li>
                 {% if current_user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('posts.posts.new_post') }}"><b>New Post</b></a>
+                        <a class="nav-link" href="{{ url_for('posts.new_post') }}"><b>New Post</b></a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
