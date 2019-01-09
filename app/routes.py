@@ -1,11 +1,12 @@
 import os
 import secrets
 from PIL import Image
-from app import app, db, bcrypt
+from app import app, db, bcrypt, mail
 from flask import render_template, url_for, flash, redirect, request, abort
 from app.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm
 from app.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
+from flask_mail import Message
 
 
 @app.route("/")
@@ -140,11 +141,26 @@ def delete_post(post_id):
     return redirect(url_for('home'))
 
 
+def send_reset_email(user):
+    token = user.get_reset_token()
+    msg = Message('Password Reset Request', sender='zerostwo@126.com', recipients=[user.email])
+    msg.body = '''To reset your password, visit the following link:
+{url_for('reset_token', token=token, _external=True)}
+
+if you did not make this request then simply ignore this email and no change will be made. 
+'''
+
+
 @app.route("/reset_password/", methods=['GET', "POST"])
 def reset_request():
     if current_user.is_authenticated:
         return redirect(url_for('home'))
     form = RequestResetForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        send_reset_email(user)
+        flash('An email has been sent with instructions to reset your password.', 'info')
+        return redirect(url_for('login'))
     return render_template('reset_request.html', title='Reset Password', form=form)
 
 
