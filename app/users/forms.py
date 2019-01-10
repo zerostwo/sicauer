@@ -64,3 +64,8 @@ class ResetPasswordForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Reset Password')
+
+
+class FaceInfo(FlaskForm):
+    user_id = StringField('学号', validators=[DataRequired()])
+    submit = SubmitField('查询')

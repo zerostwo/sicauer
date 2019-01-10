@@ -34,6 +34,9 @@
                         <a class="nav-link" href="{{ url_for('main.home') }}">Home <span
                                 class="sr-only">(current)</span></a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('users.info') }}">Face</a>
+                    </li>
                     {% if current_user.is_authenticated %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url_for('posts.new_post') }}"><b>New Post</b></a>
