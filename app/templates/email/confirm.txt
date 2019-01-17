@@ -1,0 +1,13 @@
+亲爱的 {{ user.username }},
+
+欢迎加入川农人树洞！
+
+通过点击下面这个链接验证你的邮箱：
+
+{{ url_for('users.confirm', token=token, _external=True) }}
+
+Sincerely,
+
+The sicauer team
+
+Note: replies to this email address are not monitored.

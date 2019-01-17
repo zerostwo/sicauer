@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom">Face</legend>
+            </fieldset>
+            <div class="form-group">
+                {{ form.user_id(class="form-control") }}
+            </div>
+            <div class="text-center">
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+            {% if a %}
+                <p class="text text-center"></p>
+                <div class="alert alert-success" role="alert">
+                    <h4 class="alert-heading">Well done!</h4>
+                    <p>{{ a }}</p>
+                </div>
+            {% endif %}
+        </form>
+    </div>
+    </div>
+{% endblock %}
