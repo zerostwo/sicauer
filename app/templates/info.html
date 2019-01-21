@@ -3,14 +3,11 @@
     <div class="content-section">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
-            <fieldset class="form-group">
-                <legend class="border-bottom">Face</legend>
-            </fieldset>
-            <div class="form-group">
-                {{ form.user_id(class="form-control") }}
-            </div>
-            <div class="text-center">
-                {{ form.submit(class="btn btn-primary") }}
+            <div class="input-group mb-3">
+                    {{ form.user_id(type="text", class="form-control") }}
+                <div class="input-group-append">
+                    {{ form.submit(class="btn btn-primary", id="button-addon2") }}
+                </div>
             </div>
             {% if a %}
                 <p class="text text-center"></p>
@@ -20,6 +17,5 @@
                 </div>
             {% endif %}
         </form>
-    </div>
     </div>
 {% endblock %}
