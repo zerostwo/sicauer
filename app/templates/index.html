@@ -12,9 +12,9 @@
                     <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
                 </div>
                 <p class="article-content">{{ post.content }}</p>
-                <a href="{{ url_for('posts.post', post_id=post.id) }}"> <span
-                        class="label label-primary">Comments {{ post.comments.count() }}</span>
-                </a>
+                <a href="{{ url_for('posts.post', post_id=post.id) }}" class="badge badge-secondary">
+                    <i class="far fa-comment"></i>
+                    {{ post.comments.count() }}</a>
             </div>
         </article>
     {% endfor %}

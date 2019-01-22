@@ -9,7 +9,7 @@
             <div class="article-metadata">
                 {{ post.author.username }}
                 <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
-{#                <span class="label label-primary">Comments {{ post.comments.count() }}</span>#}
+                {#                <span class="label label-primary">Comments {{ post.comments.count() }}</span>#}
 
                 {#                {% if post.author == current_user %}#}
                 {#                    <div>#}
@@ -26,23 +26,24 @@
     </article>
     <form method="POST" action="">
         {{ form.hidden_tag() }}
-        <fieldset class="form-group">
-            <div class="form-group">
-                {{ form.content.label(class="form-control-label") }}
-                {% if form.content.errors %}
-                    {{ form.content(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.content.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    {{ form.content(class="form-control form-control-lg") }}
-                {% endif %}
-            </div>
-        </fieldset>
         <div class="form-group">
-            {{ form.submit(class="btn btn-outline-info") }}
+            {{ form.content.label(class="form-control-label") }}
+        </div>
+        <div class="input-group mb-3">
+            {% if form.content.errors %}
+                {{ form.content(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.content.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.content(class="form-control form-control-lg") }}
+            {% endif %}
+
+            <div class="input-group-append">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
         </div>
     </form>
     {% for comment in comments %}
