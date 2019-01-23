@@ -3,6 +3,7 @@ from flask_login import current_user, login_required
 from app import db
 from app.models import Post, Comment
 from app.posts.forms import PostForm, CommentForm
+import shortuuid
 
 posts = Blueprint('posts', __name__)
 
@@ -25,7 +26,8 @@ def post(post_id):
     post = Post.query.get_or_404(post_id)
     form = CommentForm()
     if form.validate_on_submit():
-        comment = Comment(content=form.content.data, post=post, author=current_user._get_current_object())
+        comment = Comment(content=form.content.data, post=post, author=current_user._get_current_object(),
+                          reply_id=shortuuid.uuid())
         db.session.add(comment)
         db.session.commit()
         flash('Your comment has been published.', 'success')
