@@ -11,3 +11,8 @@ Sincerely,
 The sicauer team
 
 Note: replies to this email address are not monitored.
+<div class="jumbotron">
+  <h1>Hello, {{ user.username }}!</h1>
+  <p>...</p>
+  <p><a class="btn btn-primary btn-lg" href="{{ url_for('users.confirm', token=token, _external=True) }}" role="button">Learn more</a></p>
+</div>

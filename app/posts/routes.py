@@ -22,6 +22,7 @@ def new_post():
 
 
 @posts.route('/post/<int:post_id>/', methods=['GET', 'POST'])
+@login_required
 def post(post_id):
     post = Post.query.get_or_404(post_id)
     form = CommentForm()
