@@ -5,8 +5,8 @@ from requests import exceptions
 
 
 class GetStart:
-    student_id = "201702442"
-    password = "123123"
+    student_id = "201702420"
+    password = "981211"
     session = requests.Session()
     headers = {
         "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) \

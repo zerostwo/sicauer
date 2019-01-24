@@ -24,7 +24,6 @@ class User(db.Model, UserMixin):
     member_since = db.Column(db.DateTime(), default=datetime.now)
     last_seen = db.Column(db.DateTime(), default=datetime.now)
     comments = db.relationship('Comment', backref='author', lazy='dynamic')
-    pid = db.Column(db.Integer, default=0)
 
     def ping(self):
         self.last_seen = datetime.now()
@@ -97,7 +96,7 @@ class Post(db.Model):
     comments = db.relationship('Comment', backref='post', lazy='dynamic')
 
     def __repr__(self):
-        return f"{self.content}"
+        return f"{self.content}'"
 
 
 class Comment(db.Model):
