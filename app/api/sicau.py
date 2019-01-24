@@ -2,6 +2,7 @@ import requests
 from lxml import etree
 from bs4 import BeautifulSoup
 from requests import exceptions
+import re
 
 
 class GetStart:
@@ -72,7 +73,84 @@ class Inquire(GetStart):
             grade.append(intermediate)
         return grade
 
-    def course_selection_or_withdrawal(self):
+    def course_info_clear(self, text):
+        init = re.findall('(.+?)<br/>', re.findall('width="13.5%">(.+?)</td>', text)[0])
+        c = '--------------------'
+        if len(init) != 0:
+            count = init.count(c)
+            p = init.index(c)
+            if count != 1:
+                for i in init:
+                    init[init.index(i)] = re.sub('<(.+?)>', ' ', i)
+                course1 = init[:p]
+                course2 = init[p + 1:-1]
+                course_info = {
+                    1: {
+                        'course': course1[0],
+                        'location': course1[1],
+                        'time': course1[2],
+                        'experiment': True if len(course1) == 4 else False
+                    },
+                    2: {
+                        'course': course2[0],
+                        'location': course2[1],
+                        'time': course2[2],
+                        'experiment': True if len(course2) == 4 else False
+                    }
+                }
+            else:
+                for i in init:
+                    init[init.index(i)] = re.sub('<(.+?)>', ' ', i)
+                course1 = init[:p]
+                course_info = {
+                    1: {
+                        'course': course1[0],
+                        'location': course1[1],
+                        'time': course1[2],
+                        'experiment': True if len(course1) == 4 else False
+                    }
+                }
+        else:
+            course_info = {
+                1: {
+                    'course': '',
+                    'location': '',
+                    'time': '',
+                    'experiment': ''
+                }
+            }
+        return course_info
+
+    def curriculum(self):
         url = "http://jiaowu.sicau.edu.cn/xuesheng/gongxuan/gongxuan/bxq.asp"
         soup = self.get_soup(url)
-        return soup.prettify()
+        semesters = []
+        for semester in soup.find_all('a', {"href": re.compile('xszhinan.asp.*')}):
+            semesters.append(semester.string)
+        data = {"xueqi": semesters[0]}
+        url = "http://jiaowu.sicau.edu.cn/xuesheng/gongxuan/gongxuan/xszhinan.asp"
+        select = self.session.post(url, data=data)
+        b = self.session.get('http://jiaowu.sicau.edu.cn/xuesheng/gongxuan/gongxuan/kbbanji.asp')
+        b.encoding = b.apparent_encoding
+        soup2 = BeautifulSoup(b.text, features='html5lib')
+        courses = soup2.find_all("td", {"width": "13.5%", "valign": "top", "align": "center", "height": "50"})
+        curriculum = {}
+        weeks = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        for i in range(len(weeks)):
+            curriculum[weeks[i]] = {
+                1: self.course_info_clear(str(courses[0 + i])),
+                2: self.course_info_clear(str(courses[7 + i])),
+                3: self.course_info_clear(str(courses[14 + i])),
+                4: self.course_info_clear(str(courses[21 + i])),
+                5: self.course_info_clear(str(courses[28 + i]))
+            }
+        return curriculum
+
+
+if __name__ == '__main__':
+    inquire = Inquire()
+    curriculum = inquire.curriculum()
+    mon = []
+    for i in range(5):
+        mon.append(curriculum['Mon'][i + 1][1]['course'])
+    print(mon)
