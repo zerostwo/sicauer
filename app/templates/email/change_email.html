@@ -24,10 +24,9 @@
 <main role="main" class="flex-shrink-0">
     <div class="container">
         <p class="lead">Hello, {{ user.username }}!</p>
-        <p class="lead">欢迎加入sicauer！</p>
-        <p class="lead">通过点击下面这个链接确认您的邮箱：</p>
+        <p class="lead">通过点击下面这个链接更改你的邮箱：</p>
         <p class="lead">
-            <a href="{{ url_for('users.confirm', token=token, _external=True) }}" class="btn btn-primary">确认邮箱</a>
+            <a href="{{ url_for('users.change_email', token=token, _external=True) }}" class="btn btn-primary">更改邮箱</a>
         </p>
     </div>
 </main>
