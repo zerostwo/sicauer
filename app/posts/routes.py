@@ -4,6 +4,7 @@ from app import db
 from app.models import Post, Comment
 from app.posts.forms import PostForm, CommentForm
 import shortuuid
+from datetime import datetime
 
 posts = Blueprint('posts', __name__)
 
@@ -13,7 +14,7 @@ posts = Blueprint('posts', __name__)
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
-        post = Post(content=form.content.data, author=current_user)
+        post = Post(content=form.content.data, author=current_user, date_posted=datetime.utcnow())
         db.session.add(post)
         db.session.commit()
         flash('Your post has been created!', 'success')
@@ -28,7 +29,7 @@ def post(post_id):
     form = CommentForm()
     if form.validate_on_submit():
         comment = Comment(content=form.content.data, post=post, author=current_user._get_current_object(),
-                          reply_id=shortuuid.uuid())
+                          reply_id=shortuuid.uuid(), date_posted=datetime.utcnow())
         db.session.add(comment)
         db.session.commit()
         flash('Your comment has been published.', 'success')

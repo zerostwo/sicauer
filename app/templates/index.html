@@ -10,6 +10,7 @@
                 <div class="article-metadata">
                     {{ post.author.username }}
                     <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+                    <small class="text-muted">{{ moment(post.date_posted).fromNow(refresh=True) }}</small>
                 </div>
                 <p class="article-content">{{ post.content }}</p>
                 <a href="{{ url_for('posts.post', post_id=post.id) }}" class="badge badge-secondary">
