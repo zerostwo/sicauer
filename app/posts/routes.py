@@ -34,7 +34,6 @@ def post(post_id):
         db.session.commit()
         flash('Your comment has been published.', 'success')
         return redirect(url_for('posts.post', post_id=post.id))
-    # comments = Comment.query.filter_by(post_id=post.id).all()
     comments = Comment.query.order_by(Comment.date_posted.desc()).filter_by(post_id=post.id).all()
     return render_template('post.html', title='More', post=post, form=form, comments=comments)
 
