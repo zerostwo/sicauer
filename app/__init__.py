@@ -42,11 +42,13 @@ def create_app(config_class=Config):
     from app.errors.handlers import errors
     from app.books.routes import books
     from app.api.routes import api
+    from app.super_admin.routes import super_admin
     app.register_blueprint(users)
     app.register_blueprint(books)
     app.register_blueprint(posts)
     app.register_blueprint(main)
     app.register_blueprint(errors)
     app.register_blueprint(api)
+    app.register_blueprint(super_admin)
 
     return app
