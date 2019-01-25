@@ -14,7 +14,7 @@ posts = Blueprint('posts', __name__)
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
-        post = Post(content=form.content.data, author=current_user, date_posted=datetime.utcnow())
+        post = Post(content=form.content.data, author=current_user)
         db.session.add(post)
         db.session.commit()
         flash('Your post has been created!', 'success')
@@ -29,12 +29,13 @@ def post(post_id):
     form = CommentForm()
     if form.validate_on_submit():
         comment = Comment(content=form.content.data, post=post, author=current_user._get_current_object(),
-                          reply_id=shortuuid.uuid(), date_posted=datetime.utcnow())
+                          reply_id=shortuuid.uuid())
         db.session.add(comment)
         db.session.commit()
         flash('Your comment has been published.', 'success')
         return redirect(url_for('posts.post', post_id=post.id))
-    comments = Comment.query.filter_by(post_id=post.id).all()
+    # comments = Comment.query.filter_by(post_id=post.id).all()
+    comments = Comment.query.order_by(Comment.date_posted.desc()).filter_by(post_id=post.id).all()
     return render_template('post.html', title='More', post=post, form=form, comments=comments)
 
 

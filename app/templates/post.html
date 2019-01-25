@@ -8,7 +8,10 @@
         <div class="media-body">
             <div class="article-metadata">
                 {{ post.author.username }}
-                <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+                <span class="d-inline-block" tabindex="0" data-toggle="tooltip"
+                      title="{{ post.date_posted.strftime('%Y-%m-%d %H:%M:%S') }}">
+                        <small class="text-muted">{{ moment(post.date_posted).fromNow(refresh=True) }}</small>
+                </span>
             </div>
             <p class="article-content">{{ post.content }}</p>
         </div>
@@ -44,7 +47,10 @@
             <div class="media-body">
                 <div class="article-metadata">
                     {{ comment.author.username }}
-                    <small class="text-muted">{{ comment.date_posted.strftime('%Y-%m-%d') }}</small>
+                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip"
+                          title="{{ post.date_posted.strftime('%Y-%m-%d %H:%M:%S') }}">
+                        <small class="text-muted">{{ moment(comment.date_posted).fromNow(refresh=True) }}</small>
+                    </span>
                 </div>
                 <p class="article-content">{{ comment.content }}</p>
             </div>
