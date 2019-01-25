@@ -6,7 +6,7 @@ from app.users.forms import ResetPasswordForm, RequestResetForm, RegistrationFor
 from app.models import User, Post
 from app.users.utils import send_reset_email, save_picture, face_info, verification_id, send_email
 
-users = Blueprint('users', __name__)
+users = Blueprint('users', __name__, static_folder='static')
 
 
 @users.route('/register/', methods=['GET', 'POST'])

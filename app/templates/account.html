@@ -8,7 +8,11 @@
             <p class="text-secondary">{{ current_user.student_ID }}<br>
                 <a href="{{ url_for('users.change_email_request') }}">
                     {{ current_user.email }}</a><br>
-                Member since {{ moment(current_user.member_since).format('YYYY-MM-DD') }}
+                Member since
+                <span class="d-inline-block" tabindex="0" data-toggle="tooltip"
+                      title="{{ current_user.member_since.strftime('%Y-%m-%d %H:%M:%S') }}">
+                         {{ moment(current_user.member_since, local=True).format('YYYY-MM-DD') }}
+                </span>
             </p>
         </div>
     </div>

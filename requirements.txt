@@ -13,6 +13,7 @@ cryptography==2.4.2
 dominate==2.3.5
 Flask==1.0.2
 Flask-Admin==1.5.3
+Flask-Avatars==0.2.1
 Flask-Bcrypt==0.7.1
 Flask-Login==0.4.1
 Flask-Mail==0.9.1
