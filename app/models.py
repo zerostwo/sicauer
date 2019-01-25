@@ -90,7 +90,7 @@ class User(db.Model, UserMixin):
 class Post(db.Model):
     __tablename__ = 'posts'
     id = db.Column(db.Integer, primary_key=True)
-    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.now)
     content = db.Column(db.Text)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     comments = db.relationship('Comment', backref='post', lazy='dynamic')
@@ -103,7 +103,7 @@ class Comment(db.Model):
     __tablename__ = 'comments'
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text)
-    date_posted = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    date_posted = db.Column(db.DateTime, index=True, default=datetime.now)
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
     reply_id = db.Column(db.Integer, default=0)

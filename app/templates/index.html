@@ -11,7 +11,7 @@
                     {{ post.author.username }}
                     <span class="d-inline-block" tabindex="0" data-toggle="tooltip"
                           title="{{ post.date_posted.strftime('%Y-%m-%d %H:%M:%S') }}">
-                        <small class="text-muted">{{ moment(post.date_posted).fromNow(refresh=True) }}</small>
+                        <small class="text-muted">{{ moment(post.date_posted, local=True).fromNow(refresh=True) }}</small>
                     </span>
                 </div>
                 <p class="article-content">{{ post.content }}</p>
