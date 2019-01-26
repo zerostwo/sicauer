@@ -24,6 +24,7 @@ class User(db.Model, UserMixin):
     member_since = db.Column(db.DateTime(), default=datetime.now)
     last_seen = db.Column(db.DateTime(), default=datetime.now)
     comments = db.relationship('Comment', backref='author', lazy='dynamic')
+    replies = db.relationship('Reply', backref='author', lazy='dynamic')
 
     def ping(self):
         self.last_seen = datetime.now()
@@ -103,11 +104,25 @@ class Comment(db.Model):
     __tablename__ = 'comments'
     id = db.Column(db.Integer, primary_key=True)
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
-    comment_id = db.Column(db.Integer, db.ForeignKey('comments.id'))  # parent id
     date_posted = db.Column(db.DateTime, index=True, default=datetime.now)
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    reply = db.relationship("Comment", backref=db.backref('comment', remote_side=[id]), lazy='dynamic')  # child_id
     content = db.Column(db.Text)
+    replies = db.relationship('Reply', backref='comment', lazy='dynamic')
+
+    def __repr__(self):
+        return f"{self.content}"
+
+
+class Reply(db.Model):
+    __tablename__ = 'replies'
+    id = db.Column(db.Integer, primary_key=True)
+    comment_id = db.Column(db.Integer, db.ForeignKey('comments.id'))
+    date_posted = db.Column(db.DateTime, index=True, default=datetime.now)
+    author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    content = db.Column(db.Text)
+    replied_id = db.Column(db.Integer, db.ForeignKey('replies.id'))  # parent id
+    replies_z = db.relationship('Reply', back_populates='replied', cascade='all, delete-orphan')
+    replied = db.relationship('Reply', back_populates='replies_z', remote_side=[id])  # child_id
 
     def __repr__(self):
         return f"{self.content}"

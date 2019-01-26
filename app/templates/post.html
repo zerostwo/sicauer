@@ -39,41 +39,46 @@
         </div>
     </form>
     {% for comment in comments %}
-        {% if comment.comment_id != None %}
-            <article class="media content-section">
-                <a class="mr-2" href="{{ url_for('users.user_posts', username=comment.author.username) }}">
-                    <img class="rounded-circle article-img"
-                         src="{{ url_for('static', filename='profile_pics/' + comment.author.image_file) }}">
-                </a>
-                <div class="media-body">
-                    <div class="article-metadata">
-                        {{ comment.author.username }}
-                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip"
-                              title="{{ comment.date_posted.strftime('%Y-%m-%d %H:%M:%S') }}">
+        <article class="media content-section">
+            <a class="mr-2" href="{{ url_for('users.user_posts', username=comment.author.username) }}">
+                <img class="rounded-circle article-img"
+                     src="{{ url_for('static', filename='profile_pics/' + comment.author.image_file) }}">
+            </a>
+            <div class="media-body">
+                <div class="article-metadata">
+                    {{ comment.author.username }}
+                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip"
+                          title="{{ comment.date_posted.strftime('%Y-%m-%d %H:%M:%S') }}">
                         <small class="text-muted">{{ moment(comment.date_posted, local=True).fromNow(refresh=True) }}</small>
                     </span>
-                        <a class="" role="button" data-toggle="collapse" href="#a{{ comment.id }}" aria-expanded="false"
-                           aria-controls="collapseExample">
-                            Reply
-                        </a>
-                    </div>
-                    <p class="article-content">{{ comment.content }}</p>
-                    {% if comment.reply %}
-                        <p class="alert alert-dark reply-body">{{ comment.reply.author }}:
-                            <br>{{ comment.reply.content }}
-                        </p>
+                    <a class="" role="button" data-toggle="collapse" href="#a{{ comment.id }}" aria-expanded="false"
+                       aria-controls="collapseExample">
+                        Reply
+                    </a>
+                </div>
+                <p class="article-content">{{ comment.content }}</p>
+                {% for reply in replies %}
+                    {% if reply.comment_id == comment.id %}
+                        {% if reply.replied != None %}
+                            <p class="alert alert-dark reply-body">{{ reply.author }}@{{ reply.replied.author }}:{{ reply.content }}
+                            </p>
+                        {% else %}
+                            <p class="alert alert-dark reply-body">{{ reply.author }}:{{ reply.content }}
+                            </p>
+                        {% endif %}
                     {%- endif -%}
-                    <div class="collapse" id="a{{ comment.id }}">
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">Comment</button>
-                            </div>
+
+                {% endfor %}
+                <div class="collapse" id="a{{ comment.id }}">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button">Comment</button>
                         </div>
                     </div>
                 </div>
-            </article>
-        {% endif %}
+            </div>
+        </article>
     {% endfor %}
     <!-- Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
