@@ -1,5 +1,16 @@
 {% extends "layout.html" %}
 {% block content %}
     <legend class="border-bottom">About</legend>
-    <p>$$ E=mc^2 $$</p>
+    <a class="" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false"
+       aria-controls="collapseExample">
+        Reply
+    </a>
+    <div class="collapse" id="collapseExample">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button">Comment</button>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -3,11 +3,12 @@ from lxml import etree
 from bs4 import BeautifulSoup
 from requests import exceptions
 import re
+import numpy
 
 
 class GetStart:
-    student_id = "201702420"
-    password = "981211"
+    student_id = "201702466"
+    password = "210528"
     session = requests.Session()
     headers = {
         "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) \
@@ -60,6 +61,8 @@ class Inquire(GetStart):
         soup = self.get_soup(url)
         result_html = soup.find_all('font', {'size': '2'})[20:-3]
         grade = []
+        credit = []
+        score = []
         for i in range(int(len(result_html) / 7)):
             intermediate = {
                 "num": result_html[i * 7].string,
@@ -70,8 +73,17 @@ class Inquire(GetStart):
                 "school_year": result_html[i * 7 + 5].string,
                 "semester": result_html[i * 7 + 6].string
             }
+            if result_html[i * 7 + 4].string == '必修':
+                credit.append(result_html[i * 7 + 3].string)
+                score.append(result_html[i * 7 + 2].string.strip())
             grade.append(intermediate)
-        return grade
+        s = 0
+        c = 0
+        for i in range(len(score)):
+            s += (float(score[i]) * float(credit[i]))
+            c += float(credit[i])
+        ssss = s / c
+        return ssss
 
     def course_info_clear(self, text):
         init = re.findall('(.+?)<br/>', re.findall('width="13.5%">(.+?)</td>', text)[0])
@@ -149,8 +161,5 @@ class Inquire(GetStart):
 
 if __name__ == '__main__':
     inquire = Inquire()
-    curriculum = inquire.curriculum()
-    mon = []
-    for i in range(5):
-        mon.append(curriculum['Mon'][i + 1][1]['course'])
-    print(mon)
+    a = numpy.loadtxt('/home/duansq/PycharmProjects/sicauer/test/bad.txt', dtype=numpy.str)
+    print(a)

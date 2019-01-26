@@ -3,8 +3,6 @@ from flask_login import current_user, login_required
 from app import db
 from app.models import Post, Comment
 from app.posts.forms import PostForm, CommentForm
-import shortuuid
-from datetime import datetime
 
 posts = Blueprint('posts', __name__)
 
@@ -28,8 +26,11 @@ def post(post_id):
     post = Post.query.get_or_404(post_id)
     form = CommentForm()
     if form.validate_on_submit():
-        comment = Comment(content=form.content.data, post=post, author=current_user._get_current_object(),
-                          reply_id=shortuuid.uuid())
+        comment = Comment(content=form.content.data, post=post, author=current_user._get_current_object())
+        comment_id = request.args.get('comment')
+        if comment_id:
+            replied_comment = Comment.query.get_or_404(comment_id)
+            comment.reply = replied_comment
         db.session.add(comment)
         db.session.commit()
         flash('Your comment has been published.', 'success')
