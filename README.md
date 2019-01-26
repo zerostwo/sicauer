@@ -10,7 +10,7 @@
 [![](https://img.shields.io/badge/Python-3.7.0-blue.svg)](https://www.python.org/downloads/release/python-370/)
 [![](https://img.shields.io/badge/Flask-1.0.2-red.svg)](http://flask.pocoo.org/)
 [![](https://img.shields.io/badge/IDE-Pycharm-green.svg)](https://www.jetbrains.com/pycharm/)
-[![](https://img.shields.io/github/license/zerostwo/Flask-web.svg)](https://github.com/zerostwo/sicauer/blob/master/LICENSE)
+[![](https://img.shields.io/github/license/zerostwo/sicauer.svg)](https://github.com/zerostwo/sicauer/blob/master/LICENSE)
 ![](http://progressed.io/bar/19?title=Done)
 
 我的开发环境是基于`Ubuntu 18.04.1 LST`系统环境下的`Python 3.7.0`，IDE使用的`PyCharm Professional Edition`，在这个项目中我所使用的所有Python包及其版本号我都会记录在[`requirements.txt`](https://github.com/zerostwo/Flask-web/blob/master/requirements.txt)文件中。可以使用以下命令批量安装我所使用的包：
