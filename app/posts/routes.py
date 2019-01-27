@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, url_for, flash, redirect, request,
 from flask_login import current_user, login_required
 from app import db
 from app.models import Post, Comment, Reply
-from app.posts.forms import PostForm, CommentForm
+from app.posts.forms import PostForm, CommentForm, ReplyForm
 
 posts = Blueprint('posts', __name__)
 
@@ -25,19 +25,25 @@ def new_post():
 def post(post_id):
     post = Post.query.get_or_404(post_id)
     form = CommentForm()
-    if form.validate_on_submit():
+    if form.submit1.data and form.validate_on_submit():
         comment = Comment(content=form.content.data, post=post, author=current_user._get_current_object())
-        comment_id = request.args.get('comment')
-        if comment_id:
-            replied_comment = Comment.query.get_or_404(comment_id)
-            comment.reply = replied_comment
         db.session.add(comment)
         db.session.commit()
         flash('Your comment has been published.', 'success')
         return redirect(url_for('posts.post', post_id=post.id))
+    reply_form = ReplyForm()
+    if reply_form.submit2.data and reply_form.validate_on_submit():
+        reply = Reply(content=reply_form.content.data, comment_id=reply_form.comment_id.data,
+                      replied_id=reply_form.replied_id.data,
+                      author=current_user._get_current_object())
+        db.session.add(reply)
+        db.session.commit()
+        flash('Your reply has been published.', 'success')
+        return redirect(url_for('posts.post', post_id=post.id))
     comments = Comment.query.order_by(Comment.date_posted.desc()).filter_by(post_id=post.id).all()
     replies = Reply.query.all()
-    return render_template('post.html', title='More', post=post, form=form, comments=comments, replies=replies)
+    return render_template('post.html', title='More', post=post, form=form, comments=comments, replies=replies,
+                           reply_form=reply_form)
 
 
 @posts.route("/post/<int:post_id>/update/", methods=['GET', 'POST'])

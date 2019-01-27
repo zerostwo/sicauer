@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField
+from wtforms import StringField, SubmitField, TextAreaField, IntegerField
 from wtforms.validators import DataRequired
 
 
@@ -10,9 +10,11 @@ class PostForm(FlaskForm):
 
 class CommentForm(FlaskForm):
     content = StringField('Enter your comment', validators=[DataRequired()])
-    submit = SubmitField('Comment')
+    submit1 = SubmitField('Comment')
 
 
 class ReplyForm(FlaskForm):
     content = StringField('Enter your reply', validators=[DataRequired()])
-    submit = SubmitField('Reply')
+    comment_id = IntegerField()
+    replied_id = IntegerField()
+    submit2 = SubmitField('Reply')

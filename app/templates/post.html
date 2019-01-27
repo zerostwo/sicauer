@@ -10,31 +10,29 @@
                 {{ post.author.username }}
                 <span class="d-inline-block" tabindex="0" data-toggle="tooltip"
                       title="{{ post.date_posted.strftime('%Y-%m-%d %H:%M:%S') }}">
-                        <small class="text-muted">{{ moment(post.date_posted, local=True).fromNow(refresh=True) }}</small>
-                </span>
+                        <small class="text-muted">
+                            {{ moment(post.date_posted, local=True).fromNow(refresh=True) }}
+                        </small>
+                    </span>
             </div>
             <p class="article-content">{{ post.content }}</p>
         </div>
     </article>
     <form method="POST" action="">
         {{ form.hidden_tag() }}
-        <div class="form-group">
-            {{ form.content.label(class="form-control-label") }}
-        </div>
         <div class="input-group mb-3">
             {% if form.content.errors %}
-                {{ form.content(class="form-control form-control-lg is-invalid") }}
+                {{ form.content(class="form-control is-invalid", placeholder="Enter your comment") }}
                 <div class="invalid-feedback">
                     {% for error in form.content.errors %}
                         <span>{{ error }}</span>
                     {% endfor %}
                 </div>
             {% else %}
-                {{ form.content(class="form-control form-control-lg") }}
+                {{ form.content(class="form-control",placeholder="Enter your comment") }}
             {% endif %}
-
             <div class="input-group-append">
-                {{ form.submit(class="btn btn-outline-info") }}
+                {{ form.submit1(class="btn btn-outline-info") }}
             </div>
         </div>
     </form>
@@ -49,34 +47,142 @@
                     {{ comment.author.username }}
                     <span class="d-inline-block" tabindex="0" data-toggle="tooltip"
                           title="{{ comment.date_posted.strftime('%Y-%m-%d %H:%M:%S') }}">
-                        <small class="text-muted">{{ moment(comment.date_posted, local=True).fromNow(refresh=True) }}</small>
-                    </span>
-                    <a class="" role="button" data-toggle="collapse" href="#a{{ comment.id }}" aria-expanded="false"
-                       aria-controls="collapseExample">
-                        Reply
-                    </a>
+                            <small class="text-muted">
+                                {{ moment(comment.date_posted, local=True).fromNow(refresh=True) }}
+                            </small>
+                        </span>
                 </div>
-                <p class="article-content">{{ comment.content }}</p>
+                <p class="article-content r-p">{{ comment.content }}</p>
+                <a class="badge badge-secondary" role="button" data-toggle="collapse"
+                   href="#a{{ comment.id }}"
+                   aria-expanded="false"
+                   aria-controls="collapseExample">
+                    <i class="far fa-comment"></i>
+                </a>
+                <div class="collapse" id="a{{ comment.id }}">
+                    <form method="POST" action="">
+                        {{ reply_form.hidden_tag() }}
+                        <div class="input-group mb-3">
+                            {% if reply_form.content.errors %}
+                                {{ reply_form.content(class="form-control is-invalid",placeholder="Enter your reply...") }}
+                                <div class="invalid-feedback">
+                                    {% for error in reply_form.content.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ reply_form.content(class="form-control",placeholder="Enter your reply...") }}
+                            {% endif %}
+                            <div class="input-group-append">
+                                <section hidden>
+                                    {{ reply_form.comment_id(value=comment.id) }}
+                                </section>
+                                {{ reply_form.submit2(class="btn btn-primary") }}
+                            </div>
+                        </div>
+                    </form>
+                </div>
                 {% for reply in replies %}
                     {% if reply.comment_id == comment.id %}
                         {% if reply.replied != None %}
-                            <p class="alert alert-dark reply-body">{{ reply.author }}@{{ reply.replied.author }}:{{ reply.content }}
-                            </p>
+                            <article class="media r-section">
+                                <a class="mr-2"
+                                   href="{{ url_for('users.user_posts', username=reply.author.username) }}">
+                                    <img class="rounded-circle r-img"
+                                         src="{{ url_for('static', filename='profile_pics/' + reply.author.image_file) }}">
+                                </a>
+                                <div class="media-body">
+                                    <div class="r-metadata">
+                                        {{ reply.author.username }} @ {{ reply.replied.author }}
+                                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip"
+                                              title="{{ reply.date_posted.strftime('%Y-%m-%d %H:%M:%S') }}">
+                        <small class="text-muted">{{ moment(reply.date_posted, local=True).fromNow(refresh=True) }}</small>
+                    </span>
+                                    </div>
+                                    <p class="article-content r-p">{{ reply.content }}</p>
+                                    <a class="badge badge-secondary" role="button" data-toggle="collapse"
+                                       href="#r{{ reply.id }}"
+                                       aria-expanded="false"
+                                       aria-controls="collapseExample">
+                                        <i class="far fa-comment"></i>
+                                    </a>
+                                    <div class="collapse" id="r{{ reply.id }}">
+                                        <form method="POST" action="">
+                                            {{ reply_form.hidden_tag() }}
+                                            <div class="input-group mb-3">
+                                                {% if reply_form.content.errors %}
+                                                    {{ reply_form.content(class="form-control is-invalid",placeholder="Enter your reply...") }}
+                                                    <div class="invalid-feedback">
+                                                        {% for error in reply_form.content.errors %}
+                                                            <span>{{ error }}</span>
+                                                        {% endfor %}
+                                                    </div>
+                                                {% else %}
+                                                    {{ reply_form.content(class="form-control",placeholder="Enter your reply...") }}
+                                                {% endif %}
+                                                <div class="input-group-append">
+                                                    <section hidden>
+                                                        {{ reply_form.comment_id(value=comment.id) }}
+                                                        {{ reply_form.replied_id(value=reply.id) }}
+                                                    </section>
+                                                    {{ reply_form.submit2(class="btn btn-primary") }}
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </article>
                         {% else %}
-                            <p class="alert alert-dark reply-body">{{ reply.author }}:{{ reply.content }}
-                            </p>
+                            <article class="media r-section">
+                                <a class="mr-2"
+                                   href="{{ url_for('users.user_posts', username=reply.author.username) }}">
+                                    <img class="rounded-circle r-img"
+                                         src="{{ url_for('static', filename='profile_pics/' + reply.author.image_file) }}">
+                                </a>
+                                <div class="media-body">
+                                    <div class="r-metadata">
+                                        {{ reply.author.username }}
+                                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip"
+                                              title="{{ reply.date_posted.strftime('%Y-%m-%d %H:%M:%S') }}">
+                        <small class="text-muted">{{ moment(reply.date_posted, local=True).fromNow(refresh=True) }}</small>
+                    </span>
+                                    </div>
+                                    <p class="article-content r-p">{{ reply.content }}</p>
+                                    <a class="badge badge-secondary" role="button" data-toggle="collapse"
+                                       href="#r{{ reply.id }}"
+                                       aria-expanded="false"
+                                       aria-controls="collapseExample">
+                                        <i class="far fa-comment"></i>
+                                    </a>
+                                    <div class="collapse" id="r{{ reply.id }}">
+                                        <form method="POST" action="">
+                                            {{ reply_form.hidden_tag() }}
+                                            <div class="input-group mb-3">
+                                                {% if reply_form.content.errors %}
+                                                    {{ reply_form.content(class="form-control is-invalid",placeholder="Enter your reply...") }}
+                                                    <div class="invalid-feedback">
+                                                        {% for error in reply_form.content.errors %}
+                                                            <span>{{ error }}</span>
+                                                        {% endfor %}
+                                                    </div>
+                                                {% else %}
+                                                    {{ reply_form.content(class="form-control",placeholder="Enter your reply...") }}
+                                                {% endif %}
+                                                <div class="input-group-append">
+                                                    <section hidden>
+                                                        {{ reply_form.comment_id(value=comment.id) }}
+                                                        {{ reply_form.replied_id(value=reply.id) }}
+                                                    </section>
+                                                    {{ reply_form.submit2(class="btn btn-primary") }}
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </article>
                         {% endif %}
                     {%- endif -%}
-
                 {% endfor %}
-                <div class="collapse" id="a{{ comment.id }}">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">Comment</button>
-                        </div>
-                    </div>
-                </div>
             </div>
         </article>
     {% endfor %}
