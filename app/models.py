@@ -25,7 +25,7 @@ class User(db.Model, UserMixin):
     last_seen = db.Column(db.DateTime(), default=datetime.now)
     comments = db.relationship('Comment', backref='author', lazy='dynamic')
     replies = db.relationship('Reply', backref='author', lazy='dynamic')
-    likes = db.relationship('Like', backref='author', lazy='dynamic')
+    # likes = db.relationship('Like', backref='author', lazy='dynamic')
 
     def ping(self):
         self.last_seen = datetime.now()
@@ -96,7 +96,7 @@ class Post(db.Model):
     content = db.Column(db.Text)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     comments = db.relationship('Comment', backref='post', lazy='dynamic')
-    likes = db.relationship('Like', backref='post', lazy='dynamic')
+    # likes = db.relationship('Like', backref='post', lazy='dynamic')
 
     def __repr__(self):
         return f"{self.content}"
@@ -130,13 +130,13 @@ class Reply(db.Model):
         return f"{self.content}"
 
 
-class Like(db.Model):
-    __tablename__ = 'likes'
-    id = db.Column(db.Integer, primary_key=True)
-    author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
-    type = db.Column(db.Integer)  # post:0, comment:1, reply:2
-    status = db.Column(db.Boolean)  # 0 like
-
-    def __repr__(self):
-        return f"{self.status}"
+# class Like(db.Model):
+#     __tablename__ = 'likes'
+#     id = db.Column(db.Integer, primary_key=True)
+#     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+#     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
+#     type = db.Column(db.Integer)  # post:0, comment:1, reply:2
+#     status = db.Column(db.Boolean)  # 0 like
+#
+#     def __repr__(self):
+#         return f"{self.status}"

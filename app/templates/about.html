@@ -1,28 +1,4 @@
 {% extends "layout.html" %}
-{% block head %}
-    {{ super() }}
-    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-    <script type=text/javascript>
-        $(function () {
-            $('a#process_input').bind('click', function () {
-                $.getJSON('/background_process', {
-                    proglang: $('input[name="proglang"]').val(),
-                }, function (data) {
-                    $("#result").text(data.result)
-                });
-                return false;
-            });
-        });
-    </script>
-{% endblock %}
 {% block content %}
     <legend class="border-bottom">About</legend>
-    <form>
-        <input type=text size=5 name=proglang>
-        <a href="#" id=process_input>
-            <button class="'btn btn-default">Submit</button>
-        </a>
-    </form>
-    <p id=result>...</p>
-    </div>
 {% endblock %}
