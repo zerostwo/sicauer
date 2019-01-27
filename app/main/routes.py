@@ -1,4 +1,4 @@
-from flask import render_template, Blueprint, request
+from flask import render_template, Blueprint, request, jsonify
 from app.models import Post, Comment
 
 main = Blueprint('main', __name__)
@@ -13,6 +13,15 @@ def home():
     return render_template('index.html', posts=posts, comments=comments)
 
 
-@main.route('/about/')
+@main.route('/background_process')
+def background_process():
+    lang = request.args.get('proglang')
+    if str(lang).lower() == 'python':
+        return jsonify(result='Good')
+    else:
+        return jsonify(result='Not Good')
+
+
+@main.route('/about')
 def about():
     return render_template('about.html', title='about')
