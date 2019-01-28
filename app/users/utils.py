@@ -31,7 +31,7 @@ def send_async_email(app, msg):
 
 def send_email(to, subject, template, **kwargs):
     app = current_app._get_current_object()
-    msg = Message(subject, sender='zerostwo@126.com', recipients=[to])
+    msg = Message(subject, sender='sicauer@126.com', recipients=[to])
     msg.html = render_template(template + '.html', **kwargs)
     thr = Thread(target=send_async_email, args=[app, msg])
     thr.start()
@@ -41,7 +41,7 @@ def send_email(to, subject, template, **kwargs):
 
 def send_reset_email(user):
     token = user.get_reset_token()
-    msg = Message('Password Reset Request', sender='zerostwo@126.com', recipients=[user.email])
+    msg = Message('Password Reset Request', sender='sicauer@126.com', recipients=[user.email])
     msg.html = '''<p>To reset your password, visit the following link:</p>
     <p><a href='{}'>点我</a></p>
     <p>if you did not make this request then simply ignore this email and no change will be made.</p>

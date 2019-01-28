@@ -10,7 +10,6 @@
             s.parentNode.insertBefore(hm, s);
         })();
     </script>
-
     <meta charset="utf-8">
     <meta name="google-site-verification" content="Vfi3eRlla73KDavZeC4aRJ6FhA8B6kC5BTHamTRvRhA"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -151,9 +150,13 @@
         .account-heading {
             font-size: 2.5rem;
         }
+
+        .r-a {
+            color: #6c757d !important;
+            text-decoration: none;
+            background-color: transparent;
+        }
     </style>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css"
-          integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
 </head>
 <body>
 <header>
@@ -178,9 +181,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('users.info') }}">Face</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Book</a>
-                    </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     {% if current_user.is_authenticated %}
@@ -196,12 +196,12 @@
                                 {{ current_user.username }}
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ url_for('users.account') }}">Account</a>
+                                <a class="dropdown-item" href="{{ url_for('users.account') }}"><i class="far fa-user"></i> Account</a>
                                 {% if current_user.is_authenticated and current_user.student_ID == '201702420' %}
-                                    <a class="dropdown-item" href="{{ url_for('admin.index') }}">Admin</a>
+                                    <a class="dropdown-item" href="{{ url_for('admin.index') }}"><i class="far fa-kiss-wink-heart"></i> Admin</a>
                                 {% endif %}
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ url_for('users.logout') }}">Sign out</a>
+                                <a class="dropdown-item" href="{{ url_for('users.logout') }}"><i class="fas fa-power-off"></i> Sign out</a>
                             </div>
                         </li>
                     {% else %}
@@ -233,8 +233,9 @@
 </main>
 <footer class="footer">
     <div class="container text-center">
-        <span class="text-muted">&copy; 2018-2019 Sicauer <a
-                href="http://www.miitbeian.gov.cn">蜀ICP备18027889号</a></span>
+        <span class="text-muted">
+            &copy; 2018-2019 Sicauer <a class="r-a" href="http://www.miitbeian.gov.cn">蜀ICP备18027889号</a>
+        </span>
     </div>
 </footer>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

@@ -42,7 +42,7 @@ def login():
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('main.home'))
         else:
-            flash('Login Unsuccessful. Please check email and password.', 'danger')
+            flash('Login Unsuccessful. Please check student ID and password.', 'danger')
     return render_template('login.html', title='Login', form=form)
 
 
@@ -61,6 +61,11 @@ def account():
             picture_file = save_picture(form.picture.data)
             current_user.image_file = picture_file
         current_user.username = form.username.data
+        current_user.gender = form.gender.data
+        current_user.birthday = form.birthday.data
+        current_user.description = form.description.data
+        current_user.campus = form.campus.data
+        current_user.faculty = form.faculty.data
         db.session.commit()
         flash('Your account has been updated!', 'success')
         return redirect(url_for('users.account'))

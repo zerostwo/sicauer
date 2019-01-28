@@ -18,7 +18,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
-    image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
+    image_file = db.Column(db.String(120), nullable=False, default='default.jpg')
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     confirmed = db.Column(db.Boolean, default=False)
     member_since = db.Column(db.DateTime(), default=datetime.now)
@@ -26,6 +26,13 @@ class User(db.Model, UserMixin):
     comments = db.relationship('Comment', backref='author', lazy='dynamic')
     replies = db.relationship('Reply', backref='author', lazy='dynamic')
     # likes = db.relationship('Like', backref='author', lazy='dynamic')
+
+    # User personal info
+    gender = db.Column(db.String(20))
+    birthday = db.Column(db.DateTime())
+    campus = db.Column(db.String(20))
+    faculty = db.Column(db.String(120))
+    description = db.Column(db.String(240))
 
     def ping(self):
         self.last_seen = datetime.now()
@@ -96,6 +103,7 @@ class Post(db.Model):
     content = db.Column(db.Text)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     comments = db.relationship('Comment', backref='post', lazy='dynamic')
+
     # likes = db.relationship('Like', backref='post', lazy='dynamic')
 
     def __repr__(self):
@@ -128,7 +136,6 @@ class Reply(db.Model):
 
     def __repr__(self):
         return f"{self.content}"
-
 
 # class Like(db.Model):
 #     __tablename__ = 'likes'
