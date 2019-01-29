@@ -1,29 +1,45 @@
 {% extends "layout.html" %}
+{% from 'macros.html' import form_submit %}
 {% block content %}
     <br>
     <div class="media">
         <img class="rounded-circle account-img" src="{{ image_file }}" alt="" height="125" width="125">
         <div class="media-body">
-            <h2 class="account-heading">{{ current_user.username }}</h2>
-            <p class="text-secondary">
-                {% if current_user.gender == '1' %}
+            <h4 class="account-heading">{{ current_user.username }}</h4>
+            <p class="text-secondary more-p">
+                {% if current_user.gender == 'male' %}
                     <i class="fas fa-mars"></i>
-                {% elif current_user.gender == '2' %}
+                {% elif current_user.gender == 'female' %}
                     <i class="fas fa-venus"></i>
                 {% else %}
                     <i class="far fa-user"></i>
                 {% endif %}
-                {{ current_user.student_ID }}
-                <br>
-                <i class="far fa-envelope"></i> <a class="r-a" href="{{ url_for('users.change_email_request') }}">
-                {{ current_user.email }}</a><br>
+                {{ current_user.student_ID }}<br>
+                <i class="fas fa-atom"></i></i> {{ current_user.faculty }}<br>
                 <i class="fas fa-calendar-alt"></i> Joined
                 <span class="d-inline-block" tabindex="0" data-toggle="tooltip"
                       title="{{ current_user.member_since.strftime('%Y-%m-%d %H:%M:%S') }}">
                          {{ moment(current_user.member_since, local=True).format('YYYY-MM-DD') }}
                 </span>
-                {#                Last seen {{ current_user.last_seen.strftime('%Y-%m-%d %H:%M:%S') }}#}
             </p>
+            {#            <div class="collapse" id="collapseExample">#}
+            {#                <p class="text-secondary more-p">#}
+            {#                    <i class="far fa-envelope"></i> <a class="r-a" href="{{ url_for('users.change_email_request') }}">#}
+            {#                    {{ current_user.email }}</a><br>#}
+            {#                    {% if current_user.campus %}#}
+            {#                        <i class="fas fa-school"></i> {{ current_user.campus }}<br>#}
+            {#                    {% endif %}#}
+            {#                    {% if current_user.faculty %}#}
+            {#                        <i class="fas fa-atom"></i></i> {{ current_user.faculty }}#}
+            {#                    {% endif %}#}
+            {#                </p>#}
+            {#            </div>#}
+            {#            <p>#}
+            {#                <a class="r-a" data-toggle="collapse" href="#collapseExample" aria-expanded="false"#}
+            {#                   aria-controls="collapseExample">#}
+            {#                    More#}
+            {#                </a>#}
+            {#            </p>#}
         </div>
     </div>
     <div class="content-section">
@@ -31,22 +47,18 @@
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
                 <legend class="border-bottom">Account Info</legend>
-                <div class="form-group">
-                    {{ form.username.label(class="form-control-label") }}
-                    {% if form.username.errors %}
-                        {{ form.username(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.username.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.username(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
+                {{ form_submit(name=form.username, content="用户名") }}
+                {{ form_submit(name=form.gender) }}
+                {{ form_submit(name=form.birthday,content="例如：01/29/2019") }}
+                {{ form_submit(name=form.campus) }}
+                {{ form_submit(name=form.faculty) }}
+                {{ form_submit(name=form.description, content="一句话描述你自己...") }}
                 <div class="form-group">
                     {{ form.picture.label() }}
-                    {{ form.picture(class="form-control-file") }}
+                    <div class="custom-file">
+                        {{ form.picture(type="file" ,class="custom-file-input", id="customFile") }}
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
                     {% if form.picture.errors %}
                         {% for error in form.picture.errors %}
                             <span class="text-danger">{{ error }}</span></br>
@@ -59,7 +71,7 @@
             </div>
         </form>
     </div>
-    <h1 class="mb-3">Posts by {{ current_user.username }} ({{ current_user.posts.count() }})</h1>
+    <h4 class="mb-3">Posts by {{ current_user.username }} ({{ current_user.posts.count() }})</h4>
     {% for post in current_user.posts %}
         <article class="media content-section">
             <img class="rounded-circle article-img"
@@ -67,7 +79,10 @@
             <div class="media-body">
                 <div class="article-metadata">
                     {{ post.author.username }}
-                    <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip"
+                          title="{{ post.date_posted.strftime('%Y-%m-%d %H:%M:%S') }}">
+                        <small class="text-muted">{{ moment(post.date_posted, local=True).fromNow(refresh=True) }}</small>
+                    </span>
                 </div>
                 <p class="article-content">{{ post.content }}</p>
                 <a href="{{ url_for('posts.post', post_id=post.id) }}" class="badge badge-secondary">

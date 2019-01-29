@@ -71,16 +71,21 @@ def account():
         return redirect(url_for('users.account'))
     elif request.method == 'GET':
         form.username.data = current_user.username
+        form.gender.data = current_user.gender
+        form.birthday.data = current_user.birthday
+        form.description.data = current_user.description
+        form.campus.data = current_user.campus
+        form.faculty.data = current_user.faculty
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return render_template('account.html', title='Account', image_file=image_file, form=form)
 
 
-@users.route("/user/<string:username>")
-def user_posts(username):
+@users.route("/user/<string:id>")
+def user_info(id):
     page = request.args.get('page', 1, type=int)
-    user = User.query.filter_by(username=username).first_or_404()
+    user = User.query.filter_by(id=id).first_or_404()
     posts = Post.query.filter_by(author=user).order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
-    return render_template('user_posts.html', posts=posts, user=user)
+    return render_template('user_info.html', title=current_user.username, posts=posts, user=user)
 
 
 @users.route("/confirm/<token>/")

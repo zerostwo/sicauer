@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
     <article class="media content-section">
-        <a class="mr-2" href="{{ url_for('users.user_posts', username=post.author.username) }}">
+        <a class="mr-2" href="{{ url_for('users.user_info', id=post.author.id) }}">
             <img class="rounded-circle article-img"
                  src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
         </a>
@@ -38,7 +38,7 @@
     </form>
     {% for comment in comments %}
         <article class="media content-section">
-            <a class="mr-2" href="{{ url_for('users.user_posts', username=comment.author.username) }}">
+            <a class="mr-2" href="{{ url_for('users.user_info', id=post.author.id) }}">
                 <img class="rounded-circle article-img"
                      src="{{ url_for('static', filename='profile_pics/' + comment.author.image_file) }}">
             </a>
@@ -87,7 +87,7 @@
                         {% if reply.replied != None %}
                             <article class="media r-section">
                                 <a class="mr-2"
-                                   href="{{ url_for('users.user_posts', username=reply.author.username) }}">
+                                   href="{{ url_for('users.user_info', id=post.author.id) }}">
                                     <img class="rounded-circle r-img"
                                          src="{{ url_for('static', filename='profile_pics/' + reply.author.image_file) }}">
                                 </a>
@@ -135,7 +135,7 @@
                         {% else %}
                             <article class="media r-section">
                                 <a class="mr-2"
-                                   href="{{ url_for('users.user_posts', username=reply.author.username) }}">
+                                   href="{{ url_for('users.user_info', id=post.author.id) }}">
                                     <img class="rounded-circle r-img"
                                          src="{{ url_for('static', filename='profile_pics/' + reply.author.image_file) }}">
                                 </a>

@@ -1,5 +1,31 @@
 {% extends "layout.html" %}
 {% block content %}
+    <br>
+    <div class="media">
+        <img class="rounded-circle account-img"
+             src="{{ url_for('static', filename='profile_pics/' + user.image_file) }}" alt="" height="125" width="125">
+        <div class="media-body">
+            <h4 class="account-heading">{{ current_user.username }}</h4>
+            <p class="text-secondary more-p">
+                {% if current_user.gender == 'male' %}
+                    <i class="fas fa-mars"></i>
+                {% elif current_user.gender == 'female' %}
+                    <i class="fas fa-venus"></i>
+                {% else %}
+                    <i class="far fa-user"></i>
+                {% endif %}
+                {{ current_user.student_ID }}<br>
+                {% if current_user.faculty %}
+                    <i class="fas fa-atom"></i></i> {{ current_user.faculty }}<br>
+                {% endif %}
+                <i class="fas fa-calendar-alt"></i> Joined
+                <span class="d-inline-block" tabindex="0" data-toggle="tooltip"
+                      title="{{ current_user.member_since.strftime('%Y-%m-%d %H:%M:%S') }}">
+                         {{ moment(current_user.member_since, local=True).format('YYYY-MM-DD') }}
+                </span>
+            </p>
+        </div>
+    </div>
     <h1 class="mb-3">Posts by {{ user.username }} ({{ posts.total }})</h1>
     {% for post in posts.items %}
         <article class="media content-section">
@@ -8,7 +34,10 @@
             <div class="media-body">
                 <div class="article-metadata">
                     {{ post.author.username }}
-                    <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip"
+                          title="{{ post.date_posted.strftime('%Y-%m-%d %H:%M:%S') }}">
+                        <small class="text-muted">{{ moment(post.date_posted, local=True).fromNow(refresh=True) }}</small>
+                    </span>
                 </div>
                 <p class="article-content">{{ post.content }}</p>
                 <a href="{{ url_for('posts.post', post_id=post.id) }}" class="badge badge-secondary">

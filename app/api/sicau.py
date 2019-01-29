@@ -1,9 +1,9 @@
-import requests
-from lxml import etree
-from bs4 import BeautifulSoup
-from requests import exceptions
 import re
-import numpy
+
+import requests
+from bs4 import BeautifulSoup
+from lxml import etree
+from requests import exceptions
 
 
 class GetStart:
@@ -158,8 +158,54 @@ class Inquire(GetStart):
             }
         return curriculum
 
+    def faculty(self):
+        url = "http://jiaowu.sicau.edu.cn/web/web/web/profession.htm"
+        soup = self.get_soup(url)
+        soup_find = soup.find_all('td', {'class': 'xl66'})
+        subjects_info = []
+        for i in range(int(len(soup_find) / 5)):
+            subject_info = {
+                "id": soup_find[i * 5].text,
+                "name": soup_find[1 + i * 5].text,
+                "year": soup_find[2 + i * 5].text,
+                "category": soup_find[3 + i * 5].text,
+                "faculty": soup_find[4 + i * 5].text
+            }
+            subjects_info.append(subject_info)
+        return subjects_info
+
+    def get_personal_info(self):
+        url = "http://jiaowu.sicau.edu.cn/xuesheng/dangan/banji/bjiben.asp"
+        soup = self.get_soup(url)
+        soup_find = soup.find_all("a", {"class": "g_body"})
+        personal_info = {
+            "id": soup_find[0].text,
+            "student_id": soup_find[1].text,
+            "name": soup_find[2].text,
+            "gender": soup_find[3].text,
+            "department": soup_find[4].text,
+            "faculty": soup_find[5].text,
+            "year": soup_find[6].text,
+            "level": soup_find[7].text,
+            "grade": soup_find[8].text,
+            "class": soup_find[9].text,
+            "new_faculty": soup_find[10].text,
+            "new_class": soup_find[11].text,
+            "status": soup_find[12].text,
+            "entry_date": soup_find[13].text,
+            "id_card": soup_find[14].text,
+            "birthday": soup_find[15].text,
+            "nationality": soup_find[16].text,
+            "political_status": soup_find[17].text,
+            "address": soup_find[18].text,
+            "parents": soup_find[20].text,
+            "personal_phone": soup_find[21].text,
+            "parent_phone": soup_find[22].text,
+            "skills": soup_find[23].text,
+        }
+        return personal_info
+
 
 if __name__ == '__main__':
     inquire = Inquire()
-    a = numpy.loadtxt('/home/duansq/PycharmProjects/sicauer/test/bad.txt', dtype=numpy.str)
-    print(a)
+    print(inquire.get_personal_info())

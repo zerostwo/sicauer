@@ -1,0 +1,15 @@
+{% macro form_submit(name, content="") %}
+    <div class="form-group">
+        {{ name.label(class="form-control-label", placeholder=content) }}
+        {% if name.errors %}
+            {{ name(class="form-control is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in name.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ name(class="form-control",placeholder=content) }}
+        {% endif %}
+    </div>
+{% endmacro %}

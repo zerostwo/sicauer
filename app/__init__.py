@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, current_user
@@ -40,15 +40,13 @@ def create_app(config_class=Config):
     from app.posts.routes import posts
     from app.main.routes import main
     from app.errors.handlers import errors
-    from app.books.routes import books
     from app.api.routes import api
-    from app.super_admin.routes import super_admin
+    from app.dashboard.routes import dashboard
     app.register_blueprint(users)
-    app.register_blueprint(books)
     app.register_blueprint(posts)
     app.register_blueprint(main)
     app.register_blueprint(errors)
     app.register_blueprint(api)
-    app.register_blueprint(super_admin)
+    app.register_blueprint(dashboard)
 
     return app

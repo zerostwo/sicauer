@@ -6,7 +6,7 @@ from app.models import Post, User, Comment, Reply
 from flask_admin.contrib.sqla import ModelView
 from app import admin, db
 
-super_admin = Blueprint('super_admin', __name__)
+dashboard = Blueprint('dashboard', __name__)
 
 
 def date_format(view, value):
@@ -22,7 +22,7 @@ MY_DEFAULT_FORMATTERS.update({
 
 class UserView(ModelView):
     can_view_details = True
-    column_exclude_list = ['password', ]
+    column_exclude_list = ['password', 'image_file']
     column_searchable_list = ['student_ID', 'username', 'email']
     column_filters = ['confirmed']
     column_editable_list = ['username', 'email', 'confirmed']
@@ -31,8 +31,7 @@ class UserView(ModelView):
     column_type_formatters = MY_DEFAULT_FORMATTERS
     column_sortable_list = ('student_ID', 'last_seen', 'member_since')
     column_labels = {
-        'member_since': 'Since',
-        'image_file': 'Avatar'
+        'member_since': 'Since'
     }
 
 

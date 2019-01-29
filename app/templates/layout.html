@@ -1,162 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script>
-        var _hmt = _hmt || [];
-        (function () {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?74eb00fee3de3a70a3cae94078c10619";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
     <meta charset="utf-8">
-    <meta name="google-site-verification" content="Vfi3eRlla73KDavZeC4aRJ6FhA8B6kC5BTHamTRvRhA"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="shortcut icon" href="{{ url_for('static', filename = 'favicon.ico') }}" type="image/x-icon">
-    <link rel="icon" href="{{ url_for('static', filename = 'favicon.ico') }}" type="image/x-icon">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
-          integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     {% if title %}
         <title>Sicauer - {{ title }}</title>
     {% else %}
         <title>Sicauer</title>
     {% endif %}
-    <style media='screen' type='text/css'>
-        html {
-            position: relative;
-            min-height: 100%
-        }
-
-        body {
-            margin-bottom: 60px;
-            background: #fafafa;
-            color: #333333;
-        }
-
-        .footer {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 60px;
-            line-height: 60px;
-            font-size: 13px;
-        }
-
-        .container {
-            width: auto;
-            max-width: 680px;
-            padding: 0 15px;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            color: #444444;
-        }
-
-        .bg-steel {
-            background-color: #5f788a;
-        }
-
-        .site-header .navbar-nav .nav-link {
-            color: #cbd5db;
-        }
-
-        .site-header .navbar-nav .nav-link:hover {
-            color: #ffffff;
-        }
-
-        .site-header .navbar-nav .nav-link.active {
-            font-weight: 500;
-        }
-
-        .content-section {
-            background: #ffffff;
-            padding: 10px 20px;
-            border: 1px solid #dddddd;
-            border-radius: 3px;
-            margin-bottom: 20px;
-        }
-
-        .r-section {
-            background: #ffffff;
-            padding: 2px 0px;
-            border-top: 1px solid #e3e3e3;
-        {#border: 1px solid #dddddd;#}{#border-radius: 3px;#}{#margin-bottom: 20px;#}
-        }
-
-        .article-title {
-            color: #444444;
-        }
-
-        a.article-title:hover {
-            color: #428bca;
-            text-decoration: none;
-        }
-
-        .article-content {
-            white-space: pre-line;
-        }
-
-        .article-img {
-            height: 40px;
-            width: 40px;
-            margin-right: 0px;
-            margin-top: 5px;
-        }
-
-        .r-img {
-            height: 25px;
-            width: 25px;
-            margin-right: 0px;
-            margin-top: 5px;
-        }
-
-        .r-p {
-            margin-bottom: 0;
-        }
-
-        .article-metadata {
-            padding-bottom: 1px;
-            margin-bottom: 4px;
-            border-bottom: 1px solid #e3e3e3
-        }
-
-        .r-metadata {
-            padding-bottom: 1px;
-            margin-bottom: 4px;
-        {#border-bottom: 1px solid #e3e3e3#}
-        }
-
-        .article-metadata a:hover {
-            color: #333;
-            text-decoration: none;
-        }
-
-        .article-svg {
-            width: 25px;
-            height: 25px;
-            vertical-align: middle;
-        }
-
-        .account-img {
-            height: 125px;
-            width: 125px;
-            margin-right: 20px;
-            margin-bottom: 16px;
-        }
-
-        .account-heading {
-            font-size: 2.5rem;
-        }
-
-        .r-a {
-            color: #6c757d !important;
-            text-decoration: none;
-            background-color: transparent;
-        }
-    </style>
+    {% block styles %}
+        <link rel="shortcut icon" href="{{ url_for('static', filename = 'favicon.ico') }}" type="image/x-icon">
+        <link rel="icon" href="{{ url_for('static', filename = 'favicon.ico') }}" type="image/x-icon">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+              integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+              crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+              integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+              crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% endblock %}
 </head>
 <body>
 <header>
@@ -196,12 +58,15 @@
                                 {{ current_user.username }}
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ url_for('users.account') }}"><i class="far fa-user"></i> Account</a>
+                                <a class="dropdown-item" href="{{ url_for('users.account') }}">
+                                    <span class="text-muted"><i class="far fa-user"></i> Account</span></a>
                                 {% if current_user.is_authenticated and current_user.student_ID == '201702420' %}
-                                    <a class="dropdown-item" href="{{ url_for('admin.index') }}"><i class="far fa-kiss-wink-heart"></i> Admin</a>
+                                    <a class="dropdown-item" href="{{ url_for('admin.index') }}">
+                                        <span class="text-muted"><i class="far fa-kiss-wink-heart"></i> Admin</span></a>
                                 {% endif %}
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ url_for('users.logout') }}"><i class="fas fa-power-off"></i> Sign out</a>
+                                <a class="dropdown-item" href="{{ url_for('users.logout') }}">
+                                    <span class="text-muted"><i class="fas fa-power-off"></i> Sign out</span></a>
                             </div>
                         </li>
                     {% else %}
@@ -246,6 +111,9 @@
         crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
         integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.7.0/js/all.js"
+        integrity="sha384-qD/MNBVMm3hVYCbRTSOW130+CWeRIKbpot9/gR1BHkd7sIct4QKhT1hOPd+2hO8K"
         crossorigin="anonymous"></script>
 <script>
     $(function () {
