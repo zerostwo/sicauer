@@ -25,7 +25,7 @@ def register():
             user = User(
                 student_ID=form.student_ID.data,
                 username=form.username.data,
-                email=form.email.data,
+                email=form.email.data.lower(),
                 password=hashed_password,
                 faculty=personal_info["faculty"],
                 gender=personal_info["gender"],
@@ -84,36 +84,40 @@ def logout():
     return redirect(url_for('main.home'))
 
 
-@users.route('/account/', methods=['GET', 'POST'])
+# @users.route('/account/', methods=['GET', 'POST'])
+# @login_required
+# def account():
+#     return render_template('account.html', title='Account')
+
+
+@users.route("/account/<string:student_id>")
+def account(student_id):
+    page = request.args.get('page', 1, type=int)
+    user = User.query.filter_by(student_ID=student_id).first_or_404()
+    posts = Post.query.filter_by(author=user).order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
+    return render_template('account.html', title=current_user.username, posts=posts, user=user)
+
+
+@users.route('/setting/', methods=['GET', 'POST'])
 @login_required
-def account():
+def setting():
     form = UpdateAccountForm()
     if form.validate_on_submit():
         if form.picture.data:
             picture_file = save_picture(form.picture.data)
             current_user.image_file = picture_file
         current_user.username = form.username.data
-        current_user.birthday = form.birthday.data
         current_user.description = form.description.data
         current_user.campus = form.campus.data
         db.session.commit()
         flash('Your account has been updated!', 'success')
-        return redirect(url_for('users.account'))
+        return redirect(url_for('users.account', student_id=current_user.student_ID))
     elif request.method == 'GET':
         form.username.data = current_user.username
-        form.birthday.data = current_user.birthday
         form.description.data = current_user.description
         form.campus.data = current_user.campus
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-    return render_template('account.html', title='Account', image_file=image_file, form=form)
-
-
-@users.route("/user/<string:id>")
-def user_info(id):
-    page = request.args.get('page', 1, type=int)
-    user = User.query.filter_by(id=id).first_or_404()
-    posts = Post.query.filter_by(author=user).order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
-    return render_template('user_info.html', title=current_user.username, posts=posts, user=user)
+    return render_template('setting.html', title='Setting', image_file=image_file, form=form)
 
 
 @users.route("/confirm/<token>/")

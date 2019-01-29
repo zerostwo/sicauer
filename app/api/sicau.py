@@ -82,8 +82,8 @@ class Inquire(GetStart):
         for i in range(len(score)):
             s += (float(score[i]) * float(credit[i]))
             c += float(credit[i])
-        ssss = s / c
-        return ssss
+        compulsory_weighting = round(s / c, 2)
+        return [grade, compulsory_weighting]
 
     def course_info_clear(self, text):
         init = re.findall('(.+?)<br/>', re.findall('width="13.5%">(.+?)</td>', text)[0])

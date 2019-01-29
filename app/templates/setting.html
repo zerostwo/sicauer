@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% from 'macros.html' import form_submit %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST" action="" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom">Account Info</legend>
+                {{ form_submit(name=form.username, content="用户名") }}
+                {{ form_submit(name=form.campus) }}
+                {{ form_submit(name=form.description, content="一句话描述你自己...") }}
+                <div class="form-group">
+                    {{ form.picture.label() }}
+                    <div class="custom-file">
+                        {{ form.picture(type="file" ,class="custom-file-input", id="customFile") }}
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
+                    {% if form.picture.errors %}
+                        {% for error in form.picture.errors %}
+                            <span class="text-danger">{{ error }}</span></br>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+{% endblock %}
