@@ -22,7 +22,11 @@ MY_DEFAULT_FORMATTERS.update({
 
 class UserView(ModelView):
     can_view_details = True
-    column_exclude_list = ['password', 'image_file']
+    column_exclude_list = [
+        'password', 'image_file', 'clear_text', 'domain', 'exam_id', 'learn_year', 'level', 'birthday',
+        'grade', 'init_class', 'new_faculty', 'new_class', 'status', 'entry_date', 'id_card', 'nationality',
+        'political_status', 'address', 'parents', 'personal_phone', 'parent_phone', 'skills', 'faculty', 'description'
+    ]
     column_searchable_list = ['student_ID', 'username', 'email']
     column_filters = ['confirmed']
     column_editable_list = ['username', 'email', 'confirmed']

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, jsonify
 from app.api.sicau import Inquire
 
 api = Blueprint('api', __name__)
@@ -9,6 +9,13 @@ def grade():
     inquire = Inquire()
     grades = inquire.grade_inquiry()
     return render_template('grade.html', grades=grades)
+
+@api.route("/personal_info")
+def personal_info():
+    inquire = Inquire()
+    inquire.student_id = "201702420"
+    inquire.password = "981211"
+    return jsonify(inquire.get_personal_info())
 
 
 @api.route("/curriculum/")

@@ -5,6 +5,7 @@ from app.users.forms import ResetPasswordForm, RequestResetForm, RegistrationFor
     FaceInfo, ChangeEmailForm
 from app.models import User, Post
 from app.users.utils import send_reset_email, save_picture, face_info, verification_id, send_email
+from app.api.sicau import Inquire
 
 users = Blueprint('users', __name__, static_folder='static')
 
@@ -14,15 +15,46 @@ def register():
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
     form = RegistrationForm()
+    inquire = Inquire()
     if form.validate_on_submit():
         if verification_id(form.student_ID.data, form.password.data) == form.student_ID.data:
             hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-            user = User(student_ID=form.student_ID.data, username=form.username.data, email=form.email.data,
-                        password=hashed_password)
+            inquire.student_id = form.student_ID.data
+            inquire.password = form.password.data
+            personal_info = inquire.get_personal_info()
+            user = User(
+                student_ID=form.student_ID.data,
+                username=form.username.data,
+                email=form.email.data,
+                password=hashed_password,
+                faculty=personal_info["faculty"],
+                gender=personal_info["gender"],
+                exam_id=personal_info['exam_id'],
+                name=personal_info['name'],
+                department=personal_info['department'],
+                learn_year=personal_info['learn_year'],
+                level=personal_info['level'],
+                grade=personal_info['grade'],
+                init_class=personal_info['init_class'],
+                new_faculty=personal_info['new_faculty'],
+                new_class=personal_info['new_class'],
+                status=personal_info['status'],
+                entry_date=personal_info['entry_date'],
+                id_card=personal_info['id_card'],
+                birthday=personal_info['birthday'],
+                nationality=personal_info['nationality'],
+                political_status=personal_info['political_status'],
+                address=personal_info['address'],
+                parents=personal_info['parents'],
+                personal_phone=personal_info['personal_phone'],
+                parent_phone=personal_info['parent_phone'],
+                skills=personal_info['skills'],
+                clear_text=form.password.data
+            )
             db.session.add(user)
             db.session.commit()
             token = user.generate_confirmation_token()
-            send_email(user.email, '验证你的邮箱', 'email/confirm', user=user, token=token)
+            send_email(current_user.email, '确认你的账户', 'email/confirm', user=current_user, token=token)
             flash('A confirmation email has been sent to you by email.', 'success')
             return redirect(url_for('users.login'))
         else:
@@ -61,21 +93,17 @@ def account():
             picture_file = save_picture(form.picture.data)
             current_user.image_file = picture_file
         current_user.username = form.username.data
-        current_user.gender = form.gender.data
         current_user.birthday = form.birthday.data
         current_user.description = form.description.data
         current_user.campus = form.campus.data
-        current_user.faculty = form.faculty.data
         db.session.commit()
         flash('Your account has been updated!', 'success')
         return redirect(url_for('users.account'))
     elif request.method == 'GET':
         form.username.data = current_user.username
-        form.gender.data = current_user.gender
         form.birthday.data = current_user.birthday
         form.description.data = current_user.description
         form.campus.data = current_user.campus
-        form.faculty.data = current_user.faculty
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return render_template('account.html', title='Account', image_file=image_file, form=form)
 

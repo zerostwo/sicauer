@@ -48,10 +48,7 @@
             <fieldset class="form-group">
                 <legend class="border-bottom">Account Info</legend>
                 {{ form_submit(name=form.username, content="用户名") }}
-                {{ form_submit(name=form.gender) }}
-                {{ form_submit(name=form.birthday,content="例如：01/29/2019") }}
                 {{ form_submit(name=form.campus) }}
-                {{ form_submit(name=form.faculty) }}
                 {{ form_submit(name=form.description, content="一句话描述你自己...") }}
                 <div class="form-group">
                     {{ form.picture.label() }}

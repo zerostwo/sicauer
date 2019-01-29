@@ -179,16 +179,16 @@ class Inquire(GetStart):
         soup = self.get_soup(url)
         soup_find = soup.find_all("a", {"class": "g_body"})
         personal_info = {
-            "id": soup_find[0].text,
+            "exam_id": soup_find[0].text,
             "student_id": soup_find[1].text,
             "name": soup_find[2].text,
             "gender": soup_find[3].text,
             "department": soup_find[4].text,
             "faculty": soup_find[5].text,
-            "year": soup_find[6].text,
+            "learn_year": soup_find[6].text,
             "level": soup_find[7].text,
             "grade": soup_find[8].text,
-            "class": soup_find[9].text,
+            "init_class": soup_find[9].text,
             "new_faculty": soup_find[10].text,
             "new_class": soup_find[11].text,
             "status": soup_find[12].text,
@@ -208,4 +208,5 @@ class Inquire(GetStart):
 
 if __name__ == '__main__':
     inquire = Inquire()
-    print(inquire.get_personal_info())
+    personal_info = inquire.get_personal_info()
+    print(personal_info["faculty"])
