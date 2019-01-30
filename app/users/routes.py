@@ -54,7 +54,8 @@ def register():
             db.session.add(user)
             db.session.commit()
             token = user.generate_confirmation_token()
-            send_email(current_user.email, '确认你的账户', 'email/confirm', user=current_user, token=token)
+            # send_email(current_user.email, '确认你的账户', 'email/confirm', user=current_user, token=token)
+            send_email(form.email.data, '确认你的账户', 'email/confirm', user=current_user, token=token)
             flash('A confirmation email has been sent to you by email.', 'success')
             return redirect(url_for('users.login'))
         else:
@@ -82,12 +83,6 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('main.home'))
-
-
-# @users.route('/account/', methods=['GET', 'POST'])
-# @login_required
-# def account():
-#     return render_template('account.html', title='Account')
 
 
 @users.route("/account/<string:student_id>")

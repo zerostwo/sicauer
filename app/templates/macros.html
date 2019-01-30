@@ -13,3 +13,36 @@
         {% endif %}
     </div>
 {% endmacro %}
+
+{% macro form_inline_submit(name, content="") %}
+    {% if name.errors %}
+        {{ name(class="form-control is-invalid", placeholder=content) }}
+        <div class="invalid-feedback">
+            {% for error in name.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+    {% else %}
+        {{ name(class="form-control",placeholder=content) }}
+    {% endif %}
+{% endmacro %}
+
+{% macro post_time(c, m) %}
+    <span class="d-inline-block" tabindex="0" data-toggle="tooltip"
+          title="{{ c.strftime('%Y-%m-%d %H:%M:%S') }}">
+        <small class="text-muted">
+            {{ m(c, local=True).fromNow(refresh=True) }}
+        </small>
+    </span>
+{% endmacro %}
+
+{% macro comment_button(c, tag) %}
+    <a class="" role="" data-toggle="collapse"
+       href="#{{ tag }}{{ c.id }}"
+       aria-expanded="false"
+       aria-controls="collapseExample">
+        <span class="text-muted">
+            <i class="far fa-comment"></i>
+        </span>
+    </a>
+{% endmacro %}
