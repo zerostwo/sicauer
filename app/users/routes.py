@@ -117,7 +117,20 @@ def setting():
         form.description.data = current_user.description
         form.campus.data = current_user.campus
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-    return render_template('setting.html', title='Setting', image_file=image_file, form=form)
+    email_form = ChangeEmailForm()
+    if email_form.validate_on_submit():
+        if bcrypt.check_password_hash(current_user.password, email_form.password.data):
+            new_email = email_form.email.data
+            token = current_user.generate_email_change_token(new_email)
+            send_email(new_email, 'Confirm your email address', 'email/change_email',
+                       user=current_user, token=token)
+            flash('An email with instructions to confirm your new email '
+                  'address has been sent to you.', 'success')
+            return redirect(url_for('users.setting'))
+        else:
+            flash('Invalid email or password.', 'danger')
+            return redirect(url_for('users.setting') + '#pills-email')
+    return render_template('setting.html', title='Setting', image_file=image_file, form=form, email_form=email_form)
 
 
 @users.route("/confirm/<token>/")
@@ -189,24 +202,6 @@ def reset_token(token):
         flash('Your password has been update! You are now able to log in', 'success')
         return redirect(url_for('users.login'))
     return render_template('reset_token.html', title='Reset Password', form=form)
-
-
-@users.route('/change_email/', methods=['GET', 'POST'])
-@login_required
-def change_email_request():
-    form = ChangeEmailForm()
-    if form.validate_on_submit():
-        if bcrypt.check_password_hash(current_user.password, form.password.data):
-            new_email = form.email.data
-            token = current_user.generate_email_change_token(new_email)
-            send_email(new_email, 'Confirm your email address', 'email/change_email',
-                       user=current_user, token=token)
-            flash('An email with instructions to confirm your new email '
-                  'address has been sent to you.', 'success')
-            return redirect(url_for('main.home'))
-        else:
-            flash('Invalid email or password.', 'danger')
-    return render_template("change_email.html", title="Change email", form=form)
 
 
 @users.route('/change_email/<token>/', methods=['GET', "POST"])

@@ -41,19 +41,19 @@ class UpdateAccountForm(FlaskForm):
                          choices=[('', '选择您所在的校区...'), ('成都校区', '成都校区'), ('都江堰校区', '都江堰校区'), ('雅安校区', '雅安校区')],
                          default='')
     description = TextAreaField('Description')
-    submit = SubmitField('Update')
+    info_submit = SubmitField('Update')
 
     def validate_username(self, username):
         if username.data != current_user.username:
             user = User.query.filter_by(username=username.data).first()
             if user:
                 raise ValidationError('That username is taken. Please choose a different one.')
-
-    def validate_email(self, email):
-        if email.data != current_user.email:
-            user = User.query.filter_by(email=email.data).first()
-            if user:
-                raise ValidationError('That email is taken. Please choose a different one.')
+    #
+    # def validate_email(self, email):
+    #     if email.data != current_user.email:
+    #         user = User.query.filter_by(email=email.data).first()
+    #         if user:
+    #             raise ValidationError('That email is taken. Please choose a different one.')
 
 
 class RequestResetForm(FlaskForm):
@@ -75,7 +75,7 @@ class ResetPasswordForm(FlaskForm):
 class ChangeEmailForm(FlaskForm):
     email = StringField('New Email', validators=[DataRequired(), Length(1, 64), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
-    submit = SubmitField('Update Email Address')
+    email_submit = SubmitField('Update Email Address')
 
     def validate_email(self, email):
         if User.query.filter_by(email=email.data).first():
