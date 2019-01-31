@@ -22,7 +22,12 @@ def about():
 
 @main.route('/get_my_ip', methods=['GET'])
 def get_my_ip():
-    url = f'http://api.ipstack.com/{request.remote_addr}?access_key=341690b835d7bde8702d3bb6d99e4d3a'
-    r = requests.get(url)
+    ip = request.remote_addr
+    # url = f'http://api.ipstack.com/{ip}?access_key=341690b835d7bde8702d3bb6d99e4d3a'
+    # r = requests.get(url)
+    # j = json.loads(r.text)
+    # user_agent = user_agent_parser.Parse(request.headers.get('User-Agent'))
+    b = f'http://api.map.baidu.com/location/ip?ip={ip}&ak=fGG3zvzvtNThoWldreWBi3FbKjNxhZbK&coor=bd09ll'
+    r = requests.get(b)
     j = json.loads(r.text)
-    return jsonify({'User-Agent': request.headers.get('User-Agent')}, j), 200
+    return jsonify(j), 200

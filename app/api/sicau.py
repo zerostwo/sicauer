@@ -208,5 +208,4 @@ class Inquire(GetStart):
 
 if __name__ == '__main__':
     inquire = Inquire()
-    personal_info = inquire.get_personal_info()
-    print(personal_info["faculty"])
+    print(inquire.grade_inquiry()[0])
