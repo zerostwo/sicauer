@@ -7,8 +7,8 @@ from requests import exceptions
 
 
 class GetStart:
-    student_id = "201702466"
-    password = "210528"
+    student_id = "201702420"
+    password = "981211"
     session = requests.Session()
     headers = {
         "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) \
@@ -63,27 +63,41 @@ class Inquire(GetStart):
         grade = []
         credit = []
         score = []
+        school_year = []
         for i in range(int(len(result_html) / 7)):
             intermediate = {
                 "num": result_html[i * 7].string,
                 "course": result_html[i * 7 + 1].string.strip(),
-                "grade": result_html[i * 7 + 2].string.strip(),
+                "grade": result_html[i * 7 + 2].text.strip(),
                 "credit": result_html[i * 7 + 3].string,
                 "nature": result_html[i * 7 + 4].string,
                 "school_year": result_html[i * 7 + 5].string,
                 "semester": result_html[i * 7 + 6].string
             }
+            if result_html[i * 7 + 5].string not in school_year:
+                school_year.append(result_html[i * 7 + 5].string)
             if result_html[i * 7 + 4].string == '必修':
                 credit.append(result_html[i * 7 + 3].string)
                 score.append(result_html[i * 7 + 2].string.strip())
             grade.append(intermediate)
-        s = 0
-        c = 0
-        for i in range(len(score)):
-            s += (float(score[i]) * float(credit[i]))
-            c += float(credit[i])
-        compulsory_weighting = round(s / c, 2)
-        return [grade, compulsory_weighting]
+        one = {}
+        all_a = 0
+        all_b = 0
+        for j in school_year:
+            for k in ['1', '2']:
+                a = 0
+                b = 0
+                for i in grade:
+                    if i['semester'] == k and i['school_year'] == j and i['nature'] == '必修':
+                        all_a += float(i['credit']) * float(i['grade'])
+                        a += float(i['credit']) * float(i['grade'])
+                        all_b += float(i['credit'])
+                        b += float(i['credit'])
+                if b != 0:
+                    one[f'{j}-{k}'] = round(a / b, 2)
+                else:
+                    one['compulsory_weighting'] = round(all_a / all_b, 2)
+        return [grade, one]
 
     def course_info_clear(self, text):
         init = re.findall('(.+?)<br/>', re.findall('width="13.5%">(.+?)</td>', text)[0])
@@ -208,4 +222,4 @@ class Inquire(GetStart):
 
 if __name__ == '__main__':
     inquire = Inquire()
-    print(inquire.grade_inquiry()[0])
+    print(inquire.grade_inquiry()[1])
