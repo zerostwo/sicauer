@@ -18,6 +18,8 @@
               integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
               crossorigin="anonymous">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        {{ dropzone.load_css() }}
+        {{ dropzone.style('border: 2px dashed #0087F7; margin: 10%') }}
     {% endblock %}
     <script src="{{ url_for('static', filename = 'js/echarts.min.js') }}"></script>
 </head>
@@ -104,7 +106,7 @@
 <footer class="footer">
     <div class="container text-center">
         <span class="text-muted">
-            &copy; 2018-2019 Sicauer <a class="r-a" href="http://www.miitbeian.gov.cn">蜀ICP备18027889号</a>
+            &copy; 2019 Sicauer <a class="r-a" href="http://www.miitbeian.gov.cn">蜀ICP备18027889号</a>
         </span>
     </div>
 </footer>
@@ -127,5 +129,6 @@
 </script>
 {{ moment.include_moment() }}
 {{ moment.lang("zh-CN") }}
+{{ dropzone.load_js() }}
 </body>
 </html>

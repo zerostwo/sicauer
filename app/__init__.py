@@ -6,6 +6,8 @@ from flask_mail import Mail
 from app.config import Config
 from flask_admin import Admin, AdminIndexView
 from flask_moment import Moment
+from flask_dropzone import Dropzone
+from flask_migrate import Migrate
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
@@ -15,6 +17,8 @@ login_manager.login_message_category = 'info'
 mail = Mail()
 moment = Moment()
 admin = Admin(name="Sicauer", template_mode='bootstrap3')
+dropzone = Dropzone()
+migrate = Migrate()
 
 
 class MyAdminIndexView(AdminIndexView):
@@ -36,6 +40,8 @@ def create_app(config_class=Config):
     mail.init_app(app)
     admin.init_app(app, index_view=MyAdminIndexView())
     moment.init_app(app)
+    dropzone.init_app(app)
+    migrate.init_app(app, db)
     from app.users.routes import users
     from app.posts.routes import posts
     from app.main.routes import main

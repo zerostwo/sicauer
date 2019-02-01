@@ -3,6 +3,7 @@ from flask_login import current_user, login_required
 from app import db
 from app.models import Post, Comment, Reply
 from app.posts.forms import PostForm, CommentForm, ReplyForm
+import os
 
 posts = Blueprint('posts', __name__)
 
@@ -17,6 +18,9 @@ def new_post():
         db.session.commit()
         flash('您的帖子已经创建了！', 'success')
         return redirect(url_for('main.home'))
+    if request.method == 'POST':
+        f = request.files.get('file')
+        f.save(os.path.join(url_for('static', filename='uploads'), f.filename))
     return render_template('create_post.html', title='New Post', form=form, legend="New Post")
 
 
