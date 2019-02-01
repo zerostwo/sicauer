@@ -18,9 +18,9 @@ def new_post():
         db.session.commit()
         flash('您的帖子已经创建了！', 'success')
         return redirect(url_for('main.home'))
-    if request.method == 'POST':
-        f = request.files.get('file')
-        f.save(os.path.join(url_for('static', filename='uploads'), f.filename))
+    # if request.method == 'POST':
+        # f = request.files.get('file')
+        # f.save(os.path.join(url_for('static', filename='uploads'), f.filename))
     return render_template('create_post.html', title='New Post', form=form, legend="New Post")
 
 
