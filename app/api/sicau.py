@@ -7,8 +7,8 @@ from requests import exceptions
 
 
 class GetStart:
-    student_id = ""
-    password = ""
+    student_id = "201702420"
+    password = "981211"
     session = requests.Session()
     headers = {
         "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) \
@@ -56,13 +56,11 @@ class Inquire(GetStart):
             examination_arrangement.append(intermediate)
         return examination_arrangement
 
-    def grade_inquiry(self):
+    def grade(self):
         url = "http://jiaowu.sicau.edu.cn/xuesheng/chengji/chengji/bchengjike.asp"
         soup = self.get_soup(url)
         result_html = soup.find_all('font', {'size': '2'})[20:-3]
         grade = []
-        credit = []
-        score = []
         school_year = []
         for i in range(int(len(result_html) / 7)):
             intermediate = {
@@ -95,6 +93,17 @@ class Inquire(GetStart):
                 else:
                     one['compulsory_weighting'] = round(all_a / all_b, 2)
         return [grade, one]
+
+    def credit(self):
+        url = 'http://jiaowu.sicau.edu.cn/xuesheng/chengji/xdjd/xuefen.asp'
+        soup = self.get_soup(url)
+        # soup_find = soup.find_all('td', {'align': 'center', 'valign': "middle"})
+        soup_find = soup.find_all('div', {'align': 'center'})
+        a = []
+        for i in soup_find:
+            if i.text.strip() != '':
+                a.append(i.text.strip())
+        return [a[-3], a[-4]]
 
     def course_info_clear(self, text):
         init = re.findall('(.+?)<br/>', re.findall('width="13.5%">(.+?)</td>', text)[0])
@@ -219,4 +228,6 @@ class Inquire(GetStart):
 
 if __name__ == '__main__':
     inquire = Inquire()
-    print(inquire.grade_inquiry()[1])
+    for i in inquire.credit():
+        print(i)
+    print(inquire.credit())

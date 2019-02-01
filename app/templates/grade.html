@@ -1,57 +1,52 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div id="main" style="width: 600px;height:400px;"></div>
+    <table class="table table-borderless ">
+        <thead>
+        <tr>
+            <th class="text-center" scope="col">{{ w2 }}</th>
+            <th class="text-center" scope="col">{{ a }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="text-center">总加权/100</td>
+            <td class="text-center">总学分/{{ b }}</td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="text-center" id="main" style="width: 100%;height:300px;"></div>
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('main'));
-
         // 指定图表的配置项和数据
         var option = {
             title: {
-                text: '每学期必修加权及总必修加权'
+                text: '每学期必修加权',
+                x: 'center',
+                y: 'top',
+                textAlign: 'left'
             },
             tooltip: {},
             xAxis: {
-                data: {{ subjects|safe }}
+                data: {{ subjects|safe }},
             },
             yAxis: {
-                scale: true
+                scale: true,
+                splitLine: {
+                    show: false
+                }
             },
             series: [{
-                name: '分数',
+                name: '必修加权',
                 type: 'line',
                 data: {{ scores|safe }}
             }],
-            markLine: {
-                data: [
-                    [{name: '1', xAxis: 0, yAxis: {{w2|safe}}, symbol: 'circle'},
-                        {name: '2', xAxis: '2018-1', yAxis: {{w2|safe}}, symbol: 'circle'},
-                    ],
-                ],
-                label: {
-                    normal: {
-                        show: true,
-                        position: 'middle',
-                        formatter: '节能与新能源汽车技术路线图2020年目标',
-                    },
-                },
-                lineStyle: {
-                    normal: {
-                        type: 'solid',
-                        color: '#fff',
-                    },
-                },
-            },
-            itemStyle: {
-                normal: {
-                    color: '#0fefee',
-                },
-            },
         }
 
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
     </script>
+
     <table class="table">
         <thead>
         <tr>
