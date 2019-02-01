@@ -1,0 +1,138 @@
+html {
+    position: relative;
+    min-height: 100%
+}
+
+body {
+    margin-bottom: 60px;
+    background: #fafafa;
+    color: #333333;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    font-size: 13px;
+}
+
+.container {
+    width: auto;
+    max-width: 680px;
+    padding: 0 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #444444;
+}
+
+.bg-steel {
+    background-color: #5f788a;
+}
+
+.site-header .navbar-nav .nav-link {
+    color: #cbd5db;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+    color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-link.active {
+    font-weight: 500;
+}
+
+.content-section {
+    background: #ffffff;
+    padding: 10px 20px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+
+.r-section {
+    background: #ffffff;
+    padding: 2px 0px;
+    border-top: 1px solid #e3e3e3;
+}
+
+.article-title {
+    color: #444444;
+}
+
+a.article-title:hover {
+    color: #428bca;
+    text-decoration: none;
+}
+
+.article-content {
+    white-space: pre-line;
+}
+
+.article-img {
+    height: 40px;
+    width: 40px;
+    margin-right: 0px;
+    margin-top: 5px;
+}
+
+.r-img {
+    height: 25px;
+    width: 25px;
+    margin-right: 0px;
+    margin-top: 5px;
+}
+
+.r-p {
+    margin-bottom: 0;
+}
+
+.article-metadata {
+    padding-bottom: 1px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid #e3e3e3
+}
+
+.r-metadata {
+    padding-bottom: 1px;
+    margin-bottom: 4px;
+}
+
+.article-metadata a:hover {
+    color: #333;
+    text-decoration: none;
+}
+
+.article-svg {
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+}
+
+.account-img {
+    height: 125px;
+    width: 125px;
+    margin-right: 20px;
+    margin-bottom: 16px;
+}
+
+.account-heading {
+    font-size: 1.2rem;
+}
+
+.r-a {
+    color: #6c757d !important;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.r-a:hover {
+    text-decoration: none;
+}
+
+.more-p {
+    margin-top: 0;
+    margin-bottom: 0rem;
+}
