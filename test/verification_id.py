@@ -27,6 +27,6 @@ def verification_id(student_id, password):
         return False
 
 
-student_id = '201702420'
-password = '981211'
+student_id = ''
+password = ''
 print(verification_id(student_id, password))

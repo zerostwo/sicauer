@@ -76,6 +76,6 @@ def score_info(student_id, password):
         print(i.get_text())
 
 
-a = '201708278'
-b = '111111'
+a = ''
+b = ''
 score_info(a, b)
