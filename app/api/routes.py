@@ -12,8 +12,12 @@ def grade():
     inquire.password = current_user.clear_text
     grade_info = inquire.grade_inquiry()
     grades = grade_info[0]
-    compulsory_weighting = grade_info[1]
-    return render_template('grade.html', grades=grades, compulsory_weighting=compulsory_weighting)
+    one = grade_info[1]
+    subjects = list(one.keys())[:-1]
+    scores = list(one.values())[:-1]
+    w1 = list(one.keys())[-1]
+    w2 = list(one.values())[-1]
+    return render_template('grade.html', grades=grades, one=one, subjects=subjects, scores=scores, w1=w1, w2=w2)
 
 
 @api.route("/personal_info")

@@ -1,6 +1,57 @@
 {% extends "layout.html" %}
 {% block content %}
-    必修加权：{{ compulsory_weighting }}
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: '每学期必修加权及总必修加权'
+            },
+            tooltip: {},
+            xAxis: {
+                data: {{ subjects|safe }}
+            },
+            yAxis: {
+                scale: true
+            },
+            series: [{
+                name: '分数',
+                type: 'line',
+                data: {{ scores|safe }}
+            }],
+            markLine: {
+                data: [
+                    [{name: '1', xAxis: 0, yAxis: {{w2|safe}}, symbol: 'circle'},
+                        {name: '2', xAxis: '2018-1', yAxis: {{w2|safe}}, symbol: 'circle'},
+                    ],
+                ],
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'middle',
+                        formatter: '节能与新能源汽车技术路线图2020年目标',
+                    },
+                },
+                lineStyle: {
+                    normal: {
+                        type: 'solid',
+                        color: '#fff',
+                    },
+                },
+            },
+            itemStyle: {
+                normal: {
+                    color: '#0fefee',
+                },
+            },
+        }
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
     <table class="table">
         <thead>
         <tr>
@@ -9,8 +60,8 @@
             <th scope="col">成绩</th>
             <th scope="col">学分</th>
             <th scope="col">性质</th>
-{#            <th scope="col">学年</th>#}
-{#            <th scope="col">学期</th>#}
+            {#            <th scope="col">学年</th>#}
+            {#            <th scope="col">学期</th>#}
         </tr>
         </thead>
         <tbody>
@@ -21,8 +72,8 @@
                 <td>{{ grade.grade }}</td>
                 <td>{{ grade.credit }}</td>
                 <td>{{ grade.nature }}</td>
-{#                <td>{{ grade.school_year }}</td>#}
-{#                <td>{{ grade.semester }}</td>#}
+                {#                <td>{{ grade.school_year }}</td>#}
+                {#                <td>{{ grade.semester }}</td>#}
             </tr>
         {% endfor %}
         </tbody>

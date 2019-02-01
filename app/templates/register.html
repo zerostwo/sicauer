@@ -5,7 +5,7 @@
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-                <legend class="border-bottom">Join Today</legend>
+                <legend class="border-bottom">注册</legend>
                 {{ form_submit(name=form.student_ID) }}
                 {{ form_submit(name=form.username) }}
                 {{ form_submit(name=form.email) }}
@@ -18,7 +18,7 @@
     </div>
     <div class="border-top pt-3">
         <small class="text-muted">
-            Already Have An Account?<a class="ml-2" href="{{ url_for('users.login') }}">Sign In</a>
+            已经注册了吗？<a class="ml-2" href="{{ url_for('users.login') }}">登录</a>
         </small>
     </div>
 {% endblock %}

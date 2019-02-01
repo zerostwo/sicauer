@@ -4,7 +4,7 @@
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-                <legend class="border-bottom">Log In</legend>
+                <legend class="border-bottom">登录</legend>
                 <div class="form-group">
                     {{ form.student_ID.label(class="form-control-label") }}
                     {% if form.student_ID.errors %}
@@ -39,14 +39,14 @@
             <div class="form-group">
                 {{ form.submit(class="btn btn-outline-info") }}
                 <small class="text-muted ml-2">
-                    <a href="{{ url_for('users.reset_request') }}">Forget Password?</a>
+                    <a href="{{ url_for('users.reset_request') }}">忘记密码？</a>
                 </small>
             </div>
         </form>
     </div>
     <div class="border-top pt-3">
         <small class="text-muted">
-            Need An Account?<a class="ml-2" href="{{ url_for('users.register') }}">Sign Up</a>
+            还没注册吗？<a class="ml-2" href="{{ url_for('users.register') }}">注册</a>
         </small>
     </div>
 {% endblock %}

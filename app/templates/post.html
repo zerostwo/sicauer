@@ -22,7 +22,7 @@
     <form method="POST" action="">
         {{ form.hidden_tag() }}
         <div class="input-group mb-3">
-            {{ form_inline_submit(name=form.content, content="Enter your comment...") }}
+            {{ form_inline_submit(name=form.content, content="输入您的评论...") }}
             <div class="input-group-append">
                 {{ form.submit1(class="btn btn-outline-info") }}
             </div>
@@ -50,7 +50,7 @@
                     <form method="POST" action="">
                         {{ reply_form.hidden_tag() }}
                         <div class="input-group mb-3">
-                            {{ form_inline_submit(name=reply_form.content, content="Enter your reply...") }}
+                            {{ form_inline_submit(name=reply_form.content, content="输入您的回复...") }}
                             <div class="input-group-append">
                                 <section hidden>
                                     {{ reply_form.comment_id(value=comment.id) }}
@@ -86,7 +86,7 @@
                                     <form method="POST" action="">
                                         {{ reply_form.hidden_tag() }}
                                         <div class="input-group mb-3">
-                                            {{ form_inline_submit(name=reply_form.content, content="Enter your reply...") }}
+                                            {{ form_inline_submit(name=reply_form.content, content="输入您的回复...") }}
                                             <div class="input-group-append">
                                                 <section hidden>
                                                     {{ reply_form.comment_id(value=comment.id) }}

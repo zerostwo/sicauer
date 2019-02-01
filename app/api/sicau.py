@@ -7,8 +7,8 @@ from requests import exceptions
 
 
 class GetStart:
-    student_id = "201702420"
-    password = "981211"
+    student_id = "20154609"
+    password = "123456"
     session = requests.Session()
     headers = {
         "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) \
@@ -76,9 +76,6 @@ class Inquire(GetStart):
             }
             if result_html[i * 7 + 5].string not in school_year:
                 school_year.append(result_html[i * 7 + 5].string)
-            if result_html[i * 7 + 4].string == '必修':
-                credit.append(result_html[i * 7 + 3].string)
-                score.append(result_html[i * 7 + 2].string.strip())
             grade.append(intermediate)
         one = {}
         all_a = 0

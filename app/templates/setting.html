@@ -4,11 +4,11 @@
     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
-               aria-controls="pills-profile" aria-selected="true">Profile</a>
+               aria-controls="pills-profile" aria-selected="true">个人</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-email" role="tab"
-               aria-controls="pills-contact" aria-selected="false">Email</a>
+               aria-controls="pills-contact" aria-selected="false">邮箱</a>
         </li>
     </ul>
     <div class="tab-content" id="pills-tabContent">
@@ -17,7 +17,7 @@
                 <form method="POST" action="" enctype="multipart/form-data">
                     {{ form.hidden_tag() }}
                     <fieldset class="form-group">
-                        <legend class="border-bottom">Account Info</legend>
+                        <legend class="border-bottom">账户信息</legend>
                         {{ form_submit(name=form.username, content="用户名") }}
                         {{ form_submit(name=form.campus) }}
                         {{ form_submit(name=form.description, content="一句话描述你自己...") }}
@@ -25,7 +25,7 @@
                             {{ form.picture.label() }}
                             <div class="custom-file">
                                 {{ form.picture(type="file" ,class="custom-file-input", id="customFile") }}
-                                <label class="custom-file-label" for="customFile">Choose file</label>
+                                <label class="custom-file-label" for="customFile">选择一张照片</label>
                             </div>
                             {% if form.picture.errors %}
                                 {% for error in form.picture.errors %}
@@ -45,7 +45,7 @@
                 <form method="POST" action="">
                     {{ email_form.hidden_tag() }}
                     <fieldset class="form-group">
-                        <legend class="border-bottom">Change Email</legend>
+                        <legend class="border-bottom">更改邮箱</legend>
                         {{ form_submit(name=email_form.email) }}
                         {{ form_submit(name=email_form.password) }}
                     </fieldset>

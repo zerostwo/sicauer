@@ -15,7 +15,7 @@ def new_post():
         post = Post(content=form.content.data, author=current_user)
         db.session.add(post)
         db.session.commit()
-        flash('Your post has been created!', 'success')
+        flash('您的帖子已经创建了！', 'success')
         return redirect(url_for('main.home'))
     return render_template('create_post.html', title='New Post', form=form, legend="New Post")
 
@@ -29,7 +29,7 @@ def post(post_id):
         comment = Comment(content=form.content.data, post=post, author=current_user._get_current_object())
         db.session.add(comment)
         db.session.commit()
-        flash('Your comment has been published.', 'success')
+        flash('您的评论已发布。', 'success')
         return redirect(url_for('posts.post', post_id=post.id))
     reply_form = ReplyForm()
     if reply_form.submit2.data and reply_form.validate_on_submit():
@@ -38,11 +38,11 @@ def post(post_id):
                       author=current_user._get_current_object())
         db.session.add(reply)
         db.session.commit()
-        flash('Your reply has been published.', 'success')
+        flash('您的回复已发布。', 'success')
         return redirect(url_for('posts.post', post_id=post.id))
     comments = Comment.query.order_by(Comment.date_posted.desc()).filter_by(post_id=post.id).all()
     replies = Reply.query.all()
-    return render_template('post.html', title='More', post=post, form=form, comments=comments, replies=replies,
+    return render_template('post.html', title='详情', post=post, form=form, comments=comments, replies=replies,
                            reply_form=reply_form)
 
 
@@ -56,11 +56,11 @@ def update_post(post_id):
     if form.validate_on_submit():
         post.content = form.content.data
         db.session.commit()
-        flash('Your post has been updated!', 'success')
+        flash('您的帖子已更新！', 'success')
         return redirect(url_for('.post', post_id=post.id))
     elif request.method == 'GET':
         form.content.data = post.content
-    return render_template('create_post.html', title='Update Post', form=form, legend='Update Post')
+    return render_template('create_post.html', title='更新帖子', form=form, legend='Update Post')
 
 
 @posts.route("/post/<int:post_id>/delete/", methods=['POST'])
@@ -71,5 +71,5 @@ def delete_post(post_id):
         abort(403)
     db.session.delete(post)
     db.session.commit()
-    flash('Your post has been deleted!', 'success')
+    flash('您的帖子已被删除！', 'success')
     return redirect(url_for('main.home'))

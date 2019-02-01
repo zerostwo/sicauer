@@ -9,12 +9,12 @@ class PostForm(FlaskForm):
 
 
 class CommentForm(FlaskForm):
-    content = StringField('Enter your comment', validators=[DataRequired()])
-    submit1 = SubmitField('Comment')
+    content = StringField('输入您的评论', validators=[DataRequired()])
+    submit1 = SubmitField('评论')
 
 
 class ReplyForm(FlaskForm):
-    content = StringField('Enter your reply', validators=[DataRequired()])
+    content = StringField('输入您的回复', validators=[DataRequired()])
     comment_id = IntegerField()
     replied_id = IntegerField()
-    submit2 = SubmitField('Reply')
+    submit2 = SubmitField('回复')

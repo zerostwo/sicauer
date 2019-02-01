@@ -56,11 +56,11 @@ def register():
             token = user.generate_confirmation_token()
             # send_email(current_user.email, '确认你的账户', 'email/confirm', user=current_user, token=token)
             send_email(form.email.data, '确认你的账户', 'email/confirm', user=current_user, token=token)
-            flash('A confirmation email has been sent to you by email.', 'success')
+            flash('我们已通过电子邮件向您发送确认电子邮件。', 'success')
             return redirect(url_for('users.login'))
         else:
-            flash('Sign up Unsuccessful. Please check student ID and password.', 'danger')
-    return render_template('register.html', title='Register', form=form)
+            flash('注册失败！请检查学号或者密码。', 'danger')
+    return render_template('register.html', title='注册', form=form)
 
 
 @users.route('/login/', methods=['GET', 'POST'])
@@ -75,8 +75,8 @@ def login():
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('main.home'))
         else:
-            flash('Login Unsuccessful. Please check student ID and password.', 'danger')
-    return render_template('login.html', title='Login', form=form)
+            flash('登录失败！请检查您的学号或者密码。', 'danger')
+    return render_template('login.html', title='登录', form=form)
 
 
 @users.route('/logout/')
@@ -105,7 +105,7 @@ def setting():
         current_user.description = form.description.data
         current_user.campus = form.campus.data
         db.session.commit()
-        flash('Your account has been updated!', 'success')
+        flash('您的账号信息已更新！', 'success')
         return redirect(url_for('users.account', student_id=current_user.student_ID))
     elif request.method == 'GET':
         form.username.data = current_user.username
@@ -117,15 +117,14 @@ def setting():
         if bcrypt.check_password_hash(current_user.password, email_form.password.data):
             new_email = email_form.email.data
             token = current_user.generate_email_change_token(new_email)
-            send_email(new_email, 'Confirm your email address', 'email/change_email',
+            send_email(new_email, '请确认您的电邮地址', 'email/change_email',
                        user=current_user, token=token)
-            flash('An email with instructions to confirm your new email '
-                  'address has been sent to you.', 'success')
+            flash('我们已向您发送一封电子邮件，其中包含确认新电子邮件地址的说明。', 'success')
             return redirect(url_for('users.setting'))
         else:
-            flash('Invalid email or password.', 'danger')
+            flash('无效的电子邮件或密码。', 'danger')
             return redirect(url_for('users.setting') + '#pills-email')
-    return render_template('setting.html', title='Setting', image_file=image_file, form=form, email_form=email_form)
+    return render_template('setting.html', title='设置', image_file=image_file, form=form, email_form=email_form)
 
 
 @users.route("/confirm/<token>/")
@@ -135,9 +134,9 @@ def confirm(token):
         return redirect(url_for("main.home"))
     if current_user.confirm(token):
         db.session.commit()
-        flash('You have confirm your account. Thanks!', 'success')
+        flash('您已确认自己的帐户。谢谢！', 'success')
     else:
-        flash('The confirmation link is invalid or has expired', 'danger')
+        flash('确认链接无效或已过期', 'danger')
     return redirect(url_for('main.home'))
 
 
@@ -146,7 +145,7 @@ def confirm(token):
 def resend_confirmation():
     token = current_user.generate_confirmation_token()
     send_email(current_user.email, '确认你的账户', 'email/confirm', user=current_user, token=token)
-    flash('A new confirmation email has been sent to you by email.', 'success')
+    flash('我们已通过电子邮件向您发送新的确认电子邮件。', 'success')
     return redirect(url_for('main.home'))
 
 
@@ -165,7 +164,7 @@ def before_request():
 def unconfirmed():
     if current_user.is_anonymous or current_user.confirmed:
         return redirect(url_for('main.home'))
-    return render_template('unconfirmed.html', title='Confirm your account')
+    return render_template('unconfirmed.html', title='确认您的帐户')
 
 
 @users.route("/reset_password/", methods=['GET', "POST"])
@@ -176,9 +175,9 @@ def reset_request():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         send_reset_email(user)
-        flash('An email has been sent with instructions to reset your password.', 'info')
+        flash('已发送电子邮件，其中包含重置密码的说明。', 'info')
         return redirect(url_for('users.login'))
-    return render_template('reset_request.html', title='Reset Password', form=form)
+    return render_template('reset_request.html', title='重设密码', form=form)
 
 
 @users.route("/reset_password/<token>/", methods=['GET', "POST"])
@@ -187,16 +186,16 @@ def reset_token(token):
         return redirect(url_for('main.home'))
     user = User.verify_reset_token(token)
     if user is None:
-        flash('This is an invalid or expired token', 'warning')
+        flash('这是无效或过期的令牌', 'warning')
         return redirect(url_for('users.reset_request'))
     form = ResetPasswordForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user.password = hashed_password
         db.session.commit()
-        flash('Your password has been update! You are now able to log in', 'success')
+        flash('您的密码已更新！您现在可以登录了', 'success')
         return redirect(url_for('users.login'))
-    return render_template('reset_token.html', title='Reset Password', form=form)
+    return render_template('reset_token.html', title='重设密码', form=form)
 
 
 @users.route('/change_email/<token>/', methods=['GET', "POST"])
@@ -204,10 +203,10 @@ def reset_token(token):
 def change_email(token):
     if current_user.change_email(token):
         db.session.commit()
-        flash('Your email address has been updated.', 'success')
+        flash('您的电子邮件地址已更新。', 'success')
         return redirect(url_for('users.account'))
     else:
-        flash('Invalid request.', 'danger')
+        flash('无效请求。', 'danger')
     return redirect(url_for("main.home"))
 
 

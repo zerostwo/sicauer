@@ -17,7 +17,7 @@ def home():
 
 @main.route('/about')
 def about():
-    return render_template('about.html', title='about')
+    return render_template('about.html', title='关于我们')
 
 
 @main.route('/get_my_ip', methods=['GET'])
