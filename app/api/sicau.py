@@ -118,13 +118,15 @@ class Inquire(GetStart):
                 course2 = init[p + 1:-1]
                 course_info = {
                     1: {
-                        'course': course1[0],
+                        'course': course1[0].split("：")[0],
+                        'teacher': course1[0].split("：")[1],
                         'location': course1[1],
                         'time': course1[2],
                         'experiment': True if len(course1) == 4 else False
                     },
                     2: {
-                        'course': course2[0],
+                        'course': course2[0].split("：")[0],
+                        'teacher': course2[0].split("：")[1],
                         'location': course2[1],
                         'time': course2[2],
                         'experiment': True if len(course2) == 4 else False
@@ -136,7 +138,8 @@ class Inquire(GetStart):
                 course1 = init[:p]
                 course_info = {
                     1: {
-                        'course': course1[0],
+                        'course': course1[0].split("：")[0],
+                        'teacher': course1[0].split("：")[1],
                         'location': course1[1],
                         'time': course1[2],
                         'experiment': True if len(course1) == 4 else False
@@ -146,6 +149,7 @@ class Inquire(GetStart):
             course_info = {
                 1: {
                     'course': '',
+                    'teacher': '',
                     'location': '',
                     'time': '',
                     'experiment': ''
@@ -177,11 +181,17 @@ class Inquire(GetStart):
         #         5: self.course_info_clear(str(courses[28 + i]))
         #     }
         curriculum = {}
-        for i in range(6):
-            curriculum[i] = {
-
-            }
-        return courses
+        for i in range(5):
+            curriculum[i] = [
+                self.course_info_clear(str(courses[0 + 7 * i])),
+                self.course_info_clear(str(courses[1 + 7 * i])),
+                self.course_info_clear(str(courses[2 + 7 * i])),
+                self.course_info_clear(str(courses[3 + 7 * i])),
+                self.course_info_clear(str(courses[4 + 7 * i])),
+                self.course_info_clear(str(courses[5 + 7 * i])),
+                self.course_info_clear(str(courses[6 + 7 * i]))
+            ]
+        return curriculum
 
     def faculty(self):
         url = "http://jiaowu.sicau.edu.cn/web/web/web/profession.htm"
@@ -233,5 +243,6 @@ class Inquire(GetStart):
 
 if __name__ == '__main__':
     inquire = Inquire()
-    print(inquire.curriculum())
-
+    curriculum = inquire.curriculum()
+    for i in curriculum[0]:
+        print(i[1]['course'])
