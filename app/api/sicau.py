@@ -166,17 +166,22 @@ class Inquire(GetStart):
         b.encoding = b.apparent_encoding
         soup2 = BeautifulSoup(b.text, features='html5lib')
         courses = soup2.find_all("td", {"width": "13.5%", "valign": "top", "align": "center", "height": "50"})
+        # curriculum = {}
+        # weeks = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        # for i in range(len(weeks)):
+        #     curriculum[weeks[i]] = {
+        #         1: self.course_info_clear(str(courses[0 + i])),
+        #         2: self.course_info_clear(str(courses[7 + i])),
+        #         3: self.course_info_clear(str(courses[14 + i])),
+        #         4: self.course_info_clear(str(courses[21 + i])),
+        #         5: self.course_info_clear(str(courses[28 + i]))
+        #     }
         curriculum = {}
-        weeks = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-        for i in range(len(weeks)):
-            curriculum[weeks[i]] = {
-                1: self.course_info_clear(str(courses[0 + i])),
-                2: self.course_info_clear(str(courses[7 + i])),
-                3: self.course_info_clear(str(courses[14 + i])),
-                4: self.course_info_clear(str(courses[21 + i])),
-                5: self.course_info_clear(str(courses[28 + i]))
+        for i in range(6):
+            curriculum[i] = {
+
             }
-        return curriculum
+        return courses
 
     def faculty(self):
         url = "http://jiaowu.sicau.edu.cn/web/web/web/profession.htm"
@@ -228,6 +233,5 @@ class Inquire(GetStart):
 
 if __name__ == '__main__':
     inquire = Inquire()
-    for i in inquire.credit():
-        print(i)
-    print(inquire.credit())
+    print(inquire.curriculum())
+

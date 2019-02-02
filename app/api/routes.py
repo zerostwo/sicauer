@@ -36,33 +36,34 @@ def personal_info():
 def curriculum_info():
     inquire = Inquire()
     curriculum = inquire.curriculum()
-    mon = []
-    for i in range(5):
-        mon.append(curriculum['Mon'][i + 1][1]['course'])
-    tue = []
-    for i in range(5):
-        tue.append(curriculum['Tue'][i + 1][1]['course'])
-    wed = []
-    for i in range(5):
-        wed.append(curriculum['Wed'][i + 1][1]['course'])
-    thu = []
-    for i in range(5):
-        thu.append(curriculum['Thu'][i + 1][1]['course'])
-    fri = []
-    for i in range(5):
-        fri.append(curriculum['Fri'][i + 1][1]['course'])
-    sat = []
-    for i in range(5):
-        sat.append(curriculum['Sat'][i + 1][1]['course'])
-    sun = []
-    for i in range(5):
-        sun.append(curriculum['Sun'][i + 1][1]['course'])
-    return render_template('curriculum.html',
-                           mon=mon,
-                           tue=tue,
-                           wed=wed,
-                           thu=thu,
-                           fri=fri,
-                           sat=sat,
-                           sun=sun
-                           )
+    return jsonify(curriculum)
+    # mon = []
+    # for i in range(5):
+    #     mon.append(curriculum['Mon'][i + 1][1]['course'])
+    # tue = []
+    # for i in range(5):
+    #     tue.append(curriculum['Tue'][i + 1][1]['course'])
+    # wed = []
+    # for i in range(5):
+    #     wed.append(curriculum['Wed'][i + 1][1]['course'])
+    # thu = []
+    # for i in range(5):
+    #     thu.append(curriculum['Thu'][i + 1][1]['course'])
+    # fri = []
+    # for i in range(5):
+    #     fri.append(curriculum['Fri'][i + 1][1]['course'])
+    # sat = []
+    # for i in range(5):
+    #     sat.append(curriculum['Sat'][i + 1][1]['course'])
+    # sun = []
+    # for i in range(5):
+    #     sun.append(curriculum['Sun'][i + 1][1]['course'])
+    # return render_template('curriculum.html',
+    #                        mon=mon,
+    #                        tue=tue,
+    #                        wed=wed,
+    #                        thu=thu,
+    #                        fri=fri,
+    #                        sat=sat,
+    #                        sun=sun
+    #                        )
