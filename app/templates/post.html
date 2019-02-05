@@ -31,7 +31,7 @@
     {# comment part #}
     {% for comment in comments %}
         <article class="media content-section">
-            <a class="mr-2" href="{{ url_for('users.account', student_id=post.author.student_ID) }}">
+            <a class="mr-2" href="{{ url_for('users.account', student_id=comment.author.student_ID) }}">
                 <img class="rounded-circle article-img"
                      src="{{ url_for('static', filename='profile_pics/' + comment.author.image_file) }}">
             </a>
@@ -64,7 +64,7 @@
                     {% if reply.comment_id == comment.id %}
                         <article class="media r-section">
                             <a class="mr-2"
-                               href="{{ url_for('users.account', student_id=post.author.student_ID) }}">
+                               href="{{ url_for('users.account', student_id=reply.author.student_ID) }}">
                                 <img class="rounded-circle r-img"
                                      src="{{ url_for('static', filename='profile_pics/' + reply.author.image_file) }}">
                             </a>

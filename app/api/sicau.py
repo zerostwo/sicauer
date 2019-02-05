@@ -118,13 +118,15 @@ class Inquire(GetStart):
                 course2 = init[p + 1:-1]
                 course_info = {
                     1: {
-                        'course': course1[0],
+                        'course': course1[0].split("：")[0],
+                        'teacher': course1[0].split("：")[1],
                         'location': course1[1],
                         'time': course1[2],
                         'experiment': True if len(course1) == 4 else False
                     },
                     2: {
-                        'course': course2[0],
+                        'course': course2[0].split("：")[0],
+                        'teacher': course2[0].split("：")[1],
                         'location': course2[1],
                         'time': course2[2],
                         'experiment': True if len(course2) == 4 else False
@@ -136,7 +138,8 @@ class Inquire(GetStart):
                 course1 = init[:p]
                 course_info = {
                     1: {
-                        'course': course1[0],
+                        'course': course1[0].split("：")[0],
+                        'teacher': course1[0].split("：")[1],
                         'location': course1[1],
                         'time': course1[2],
                         'experiment': True if len(course1) == 4 else False
@@ -146,6 +149,7 @@ class Inquire(GetStart):
             course_info = {
                 1: {
                     'course': '',
+                    'teacher': '',
                     'location': '',
                     'time': '',
                     'experiment': ''
@@ -166,16 +170,27 @@ class Inquire(GetStart):
         b.encoding = b.apparent_encoding
         soup2 = BeautifulSoup(b.text, features='html5lib')
         courses = soup2.find_all("td", {"width": "13.5%", "valign": "top", "align": "center", "height": "50"})
+        # curriculum = {}
+        # weeks = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        # for i in range(len(weeks)):
+        #     curriculum[weeks[i]] = {
+        #         1: self.course_info_clear(str(courses[0 + i])),
+        #         2: self.course_info_clear(str(courses[7 + i])),
+        #         3: self.course_info_clear(str(courses[14 + i])),
+        #         4: self.course_info_clear(str(courses[21 + i])),
+        #         5: self.course_info_clear(str(courses[28 + i]))
+        #     }
         curriculum = {}
-        weeks = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-        for i in range(len(weeks)):
-            curriculum[weeks[i]] = {
-                1: self.course_info_clear(str(courses[0 + i])),
-                2: self.course_info_clear(str(courses[7 + i])),
-                3: self.course_info_clear(str(courses[14 + i])),
-                4: self.course_info_clear(str(courses[21 + i])),
-                5: self.course_info_clear(str(courses[28 + i]))
-            }
+        for i in range(5):
+            curriculum[i] = [
+                self.course_info_clear(str(courses[0 + 7 * i])),
+                self.course_info_clear(str(courses[1 + 7 * i])),
+                self.course_info_clear(str(courses[2 + 7 * i])),
+                self.course_info_clear(str(courses[3 + 7 * i])),
+                self.course_info_clear(str(courses[4 + 7 * i])),
+                self.course_info_clear(str(courses[5 + 7 * i])),
+                self.course_info_clear(str(courses[6 + 7 * i]))
+            ]
         return curriculum
 
     def faculty(self):
@@ -228,6 +243,6 @@ class Inquire(GetStart):
 
 if __name__ == '__main__':
     inquire = Inquire()
-    for i in inquire.credit():
-        print(i)
-    print(inquire.credit())
+    curriculum = inquire.curriculum()
+    for i in curriculum[0]:
+        print(i[1]['course'])

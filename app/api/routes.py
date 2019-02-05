@@ -36,33 +36,21 @@ def personal_info():
 def curriculum_info():
     inquire = Inquire()
     curriculum = inquire.curriculum()
-    mon = []
-    for i in range(5):
-        mon.append(curriculum['Mon'][i + 1][1]['course'])
-    tue = []
-    for i in range(5):
-        tue.append(curriculum['Tue'][i + 1][1]['course'])
-    wed = []
-    for i in range(5):
-        wed.append(curriculum['Wed'][i + 1][1]['course'])
-    thu = []
-    for i in range(5):
-        thu.append(curriculum['Thu'][i + 1][1]['course'])
-    fri = []
-    for i in range(5):
-        fri.append(curriculum['Fri'][i + 1][1]['course'])
-    sat = []
-    for i in range(5):
-        sat.append(curriculum['Sat'][i + 1][1]['course'])
-    sun = []
-    for i in range(5):
-        sun.append(curriculum['Sun'][i + 1][1]['course'])
-    return render_template('curriculum.html',
-                           mon=mon,
-                           tue=tue,
-                           wed=wed,
-                           thu=thu,
-                           fri=fri,
-                           sat=sat,
-                           sun=sun
-                           )
+    a0 = []
+    for i in curriculum[0]:
+        a0.append(i[1]['course'])
+    a1 = []
+    for i in curriculum[1]:
+        a1.append(i[1]['course'])
+    a2 = []
+    for i in curriculum[2]:
+        a2.append(i[1]['course'])
+    a3 = []
+    for i in curriculum[3]:
+        a3.append(i[1]['course'])
+    a4 = []
+    for i in curriculum[4]:
+        a4.append(i[1]['course'])
+
+    # return jsonify(curriculum)
+    return render_template('curriculum.html', a0=a0, a1=a1, a2=a2, a3=a3, a4=a4)

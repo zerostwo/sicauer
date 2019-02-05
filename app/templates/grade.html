@@ -3,14 +3,14 @@
     <table class="table table-borderless ">
         <thead>
         <tr>
-            <th class="text-center" scope="col">{{ w2 }}</th>
-            <th class="text-center" scope="col">{{ a }}</th>
+            <th class="text-center" scope="col">总加权/100</th>
+            <th class="text-center" scope="col">总学分/{{ b }}</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <td class="text-center">总加权/100</td>
-            <td class="text-center">总学分/{{ b }}</td>
+            <td class="text-center">{{ w2 }}</td>
+            <td class="text-center">{{ a }}</td>
         </tr>
         </tbody>
     </table>
@@ -50,11 +50,11 @@
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">课程</th>
-            <th scope="col">成绩</th>
-            <th scope="col">学分</th>
-            <th scope="col">性质</th>
+            <th class="text-center" scope="col">#</th>
+            <th class="text-center" scope="col">课程</th>
+            <th class="text-center" scope="col">成绩</th>
+            <th class="text-center" scope="col">学分</th>
+            <th class="text-center" scope="col">性质</th>
             {#            <th scope="col">学年</th>#}
             {#            <th scope="col">学期</th>#}
         </tr>
@@ -62,11 +62,11 @@
         <tbody>
         {% for grade in grades %}
             <tr>
-                <th scope="row">{{ grade.num }}</th>
-                <td>{{ grade.course }}</td>
-                <td>{{ grade.grade }}</td>
-                <td>{{ grade.credit }}</td>
-                <td>{{ grade.nature }}</td>
+                <th class="text-center" scope="row">{{ grade.num }}</th>
+                <td class="text-center">{{ grade.course }}</td>
+                <td class="text-center">{{ grade.grade }}</td>
+                <td class="text-center">{{ grade.credit }}</td>
+                <td class="text-center">{{ grade.nature }}</td>
                 {#                <td>{{ grade.school_year }}</td>#}
                 {#                <td>{{ grade.semester }}</td>#}
             </tr>
