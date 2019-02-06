@@ -43,14 +43,16 @@
                         <a class="nav-link" href="{{ url_for('main.home') }}">首页<span
                                 class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('users.info') }}">Face</a>
-                    </li>
+                    {% if current_user.is_authenticated and current_user.student_ID == '201702420' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('users.info') }}">Face</a>
+                        </li>
+                    {% endif %}
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     {% if current_user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('posts.new_post') }}"><b>New Post</b></a>
+                            <a class="nav-link" href="{{ url_for('posts.new_post') }}"><b>寄存</b></a>
                         </li>
                         <li class="nav-item dropdown ">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"

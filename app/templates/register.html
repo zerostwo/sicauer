@@ -6,10 +6,10 @@
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
                 <legend class="border-bottom">注册</legend>
-                {{ form_submit(name=form.student_ID) }}
-                {{ form_submit(name=form.username) }}
-                {{ form_submit(name=form.email) }}
-                {{ form_submit(name=form.password) }}
+                {{ form_submit(name=form.student_ID, content='请输入您的学号...') }}
+                {{ form_submit(name=form.username, content='请输入您的用户名...') }}
+                {{ form_submit(name=form.email, content='接收教务处最新通知...') }}
+                {{ form_submit(name=form.password, content='使用教务网对应密码以验证您的身份...') }}
             </fieldset>
             <div class="form-group">
                 {{ form.submit(class="btn btn-outline-info") }}

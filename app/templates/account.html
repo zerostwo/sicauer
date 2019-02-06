@@ -39,24 +39,36 @@
             </p>
         </div>
     </div>
-    <h4 class="mb-3">Posts by {{ user.username }} ({{ user.posts.count() }})</h4>
+    <h4 class="text-center">属于我的树洞({{ user.posts.count() }})</h4>
     {% for post in user.posts %}
-        <article class="media content-section">
-            <a class="mr-2" href="{{ url_for('users.account', student_id=post.author.student_ID) }}">
-                <img class="rounded-circle article-img"
-                     src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
-            </a>
-            <div class="media-body">
-                <div class="article-metadata">
-                    {{ post.author.username }}
+        {#        <article class="media content-section">#}
+        {#            <a class="mr-2" href="{{ url_for('users.account', student_id=post.author.student_ID) }}">#}
+        {#                <img class="rounded-circle article-img"#}
+        {#                     src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">#}
+        {#            </a>#}
+        {#            <div class="media-body">#}
+        {#                <div class="article-metadata">#}
+        {#                    {{ post.author.username }}#}
+        {#                    {{ post_time(c=post.date_posted, m=moment) }}#}
+        {#                </div>#}
+        {#                <p class="article-content">{{ post.content }}</p>#}
+        {#                <a href="{{ url_for('posts.post', post_id=post.id) }}" class="badge badge-secondary">#}
+        {#                    <i class="far fa-comment"></i>#}
+        {#                    {{ post.comments.count() }}</a>#}
+        {#            </div>#}
+        {#        </article>#}
+        <div class="card mb-3">
+            <div class="card-body">
+                {#                <h5 class="card-title">Card title</h5>#}
+                <p class="card-text">{{ post.content }}</p>
+                <p class="card-text">
+                    {#                    <a href="{{ url_for('posts.post', post_id=post.id) }}" class="badge badge-secondary">#}
+                    {#                        <i class="far fa-comment"></i>#}
+                    {#                        {{ post.comments.count() }}</a>#}
                     {{ post_time(c=post.date_posted, m=moment) }}
-                </div>
-                <p class="article-content">{{ post.content }}</p>
-                <a href="{{ url_for('posts.post', post_id=post.id) }}" class="badge badge-secondary">
-                    <i class="far fa-comment"></i>
-                    {{ post.comments.count() }}</a>
+                </p>
             </div>
-        </article>
+        </div>
     {% endfor %}
     <script>
         function changeImage() {

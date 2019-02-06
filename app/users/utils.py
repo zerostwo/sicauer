@@ -108,3 +108,17 @@ def verification_id(student_id, password):
         return info[0]
     except:
         return False
+
+
+def reset_password(student_id, card_id, phone_number):
+    session = requests.Session()
+    data = {
+        'password1': student_id,
+        'lb': 'S',
+        'password2': card_id,
+        'password3': phone_number,
+        'submit1': '',
+    }
+    index = session.post('http://jiaowu.sicau.edu.cn/web/web/web/Looking_pwd.htm', data=data, timeout=5)
+    index.encoding = 'gb2312'
+    return index.text
