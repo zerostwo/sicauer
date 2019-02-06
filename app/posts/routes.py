@@ -16,12 +16,12 @@ def new_post():
         post = Post(content=form.content.data, author=current_user)
         db.session.add(post)
         db.session.commit()
-        flash('您的帖子已经创建了！', 'success')
+        flash('您的秘密已经寄存！', 'success')
         return redirect(url_for('main.home'))
     # if request.method == 'POST':
-        # f = request.files.get('file')
-        # f.save(os.path.join(url_for('static', filename='uploads'), f.filename))
-    return render_template('create_post.html', title='New Post', form=form, legend="New Post")
+    # f = request.files.get('file')
+    # f.save(os.path.join(url_for('static', filename='uploads'), f.filename))
+    return render_template('create_post.html', title='树洞', form=form, legend="树洞")
 
 
 @posts.route('/post/<int:post_id>/', methods=['GET', 'POST'])

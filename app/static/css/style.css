@@ -136,3 +136,29 @@ a.article-title:hover {
     margin-top: 0;
     margin-bottom: 0rem;
 }
+
+.jumbotron {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    margin-bottom: 0;
+    background-color: #fafafa;
+}
+
+@media (min-width: 768px) {
+    .jumbotron {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+}
+
+.jumbotron p:last-child {
+    margin-bottom: 0;
+}
+
+.jumbotron-heading {
+    font-weight: 300;
+}
+
+.jumbotron .container {
+    max-width: 40rem;
+}
