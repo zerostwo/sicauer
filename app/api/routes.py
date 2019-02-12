@@ -32,6 +32,13 @@ def personal_info():
     return jsonify(inquire.get_personal_info())
 
 
+@api.route("/isicau")
+def isicau():
+    inquire = Inquire()
+    getUserSchoolActList = inquire.isicau()
+    return jsonify(getUserSchoolActList)
+
+
 @api.route("/curriculum/")
 def curriculum_info():
     inquire = Inquire()

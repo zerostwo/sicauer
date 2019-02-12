@@ -240,9 +240,50 @@ class Inquire(GetStart):
         }
         return personal_info
 
+    def isicau(self):
+        headers1 = {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Host': 'jk.sicau.edu.cn',
+            'pu-version': '1.1.1',
+            'User-Agent': 'PocketUniversity/1.1.1 (iPad; iOS 12.2; Scale/2.00)',
+        }
+        data = {
+            "loginName": "201702420",
+            "password": "1314159@Dd",
+            "sid": "f1c97a0e81c24e98adb1ebdadca0699b"
+        }
+        session = requests.session()
+        r = session.post('https://jk.sicau.edu.cn/user/login/v1.0.0/snoLogin', data=data, headers=headers1)
+        # getVisitorList_url = 'https://jk.sicau.edu.cn/user/visit/v1.0.0/getVisitorList'
+        url_getUserSchoolActList = "https://jk.sicau.edu.cn/act/actInfo/v1.0.0/getUserSchoolActList"
+        headers2 = {
+            'Content-Type': 'multipart/form-data; boundary=Boundary+7A02C92264A7392E',
+            'Host': 'jk.sicau.edu.cn',
+            'User-Agent': 'PocketUniversity/1.1.1 (iPad; iOS 12.2; Scale/2.00)',
+            'pu-version': '1.1.1',
+            'x-access-token': r.json()['content']['token'],
+        }
+        # getVisitorList = session.post(getVisitorList_url, headers=headers2)
+        getUserSchoolActList = session.post(url_getUserSchoolActList, headers=headers2)
+        # return getVisitorList.json()
+        content = getUserSchoolActList.json()['content']
+        actives = []
+        for i in range(len(content)):
+            active = content[i]
+            actives.append({
+                "title": active["title"],
+                "typeName": active["typeName"],
+                'addr': active['addr'],
+                'canJoin': active['canJoin'],
+                "startTime": active['startTime'],
+                # "startUser": active['startUser'],
+                # "startUserName": active["startUserName"],
+                # "status": active['status'],
+                "statusName": active['statusName'],
+            })
+        return actives
+
 
 if __name__ == '__main__':
     inquire = Inquire()
-    curriculum = inquire.curriculum()
-    for i in curriculum[0]:
-        print(i[1]['course'])
+    print(inquire.isicau())
