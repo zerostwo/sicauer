@@ -221,8 +221,4 @@ Bootstrap(app)
 {% endblock %}
 ```
 其中值得注意的是，在一行中的`{% extends "bootstrap/base.html" %}`，这个的意思是使用`extends`指令从`bootstrap`中导入`bootstrap/base.html`，也就是引入了Bootstrap中的所有CSS和JS文件。
-
-
-
-
-
+dua
