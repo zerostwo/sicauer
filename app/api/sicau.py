@@ -278,7 +278,7 @@ class Inquire(GetStart):
                 "startTime": active['startTime'],
                 # "startUser": active['startUser'],
                 # "startUserName": active["startUserName"],
-                # "status": active['status'],
+                "status": active['status'],
                 "statusName": active['statusName'],
             })
         return actives
