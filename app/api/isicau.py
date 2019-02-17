@@ -102,9 +102,14 @@ class Isicau(GetStart):
 
 if __name__ == '__main__':
     inquire = Isicau()
-    inquire.password = '111111'
+    inquire.password = '123456789'
     with open('./user_id', 'r') as f:
         users = f.readlines()
+    with open('./finish', 'r') as f:
+        finish = f.readlines()
+    for i in users:
+        if i in finish:
+            users.remove(i)
     for user in users:
         inquire.loginName = user[:-1]
         try:
