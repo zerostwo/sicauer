@@ -1,31 +1,51 @@
 {% extends "layout.html" %}
 {% block content %}
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Mon</th>
-            <th scope="col">Tue</th>
-            <th scope="col">Wed</th>
-            <th scope="col">Thu</th>
-            <th scope="col">Fri</th>
-            <th scope="col">Sat</th>
-            <th scope="col">Sun</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            {% for course in mon %}
-                <th scope="col">1</th>
-                <td>{{ course }}</td>
-            {% endfor %}
-        </tr>
-        <tr>
-            <th scope="col">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                {#            <th class="text-center" scope="col">#</th>#}
+                <th width="88px" class="text-center" scope="col">周一</th>
+                <th width="88px" class="text-center" scope="col">周二</th>
+                <th width="88px" class="text-center" scope="col">周三</th>
+                <th width="88px" class="text-center" scope="col">周四</th>
+                <th width="88px" class="text-center" scope="col">周五</th>
+                <th width="88px" class="text-center" scope="col">周六</th>
+                <th width="88px" class="text-center" scope="col">周日</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                {#            <th scope="col">1</th>#}
+                {% for course in a0 %}
+                    <td class="text-center">{{ course }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                {#            <th scope="col">2</th>#}
+                {% for course in a1 %}
+                    <td class="text-center">{{ course }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                {#            <th scope="col">3</th>#}
+                {% for course in a2 %}
+                    <td class="text-center">{{ course }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                {#            <th scope="col">4</th>#}
+                {% for course in a3 %}
+                    <td class="text-center">{{ course }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                {#            <th scope="col">5</th>#}
+                {% for course in a4 %}
+                    <td class="text-center">{{ course }}</td>
+                {% endfor %}
+            </tr>
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

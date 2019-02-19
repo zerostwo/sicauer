@@ -1,25 +1,55 @@
 {% extends "layout.html" %}
+{% from 'macros.html' import post_time %}
 {% block content %}
-    {% for post in posts.items %}
-        <article class="media content-section">
-            <a class="mr-2" href="{{ url_for('users.account', student_id=post.author.student_ID) }}">
-                <img class="rounded-circle article-img"
-                     src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
-            </a>
-            <div class="media-body">
-                <div class="article-metadata">
-                    {{ post.author.username }}
-                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip"
-                          title="{{ post.date_posted.strftime('%Y-%m-%d %H:%M:%S') }}">
-                        <small class="text-muted">{{ moment(post.date_posted, local=True).fromNow(refresh=True) }}</small>
-                    </span>
-                </div>
-                <p class="article-content">{{ post.content }}</p>
-                <a href="{{ url_for('posts.post', post_id=post.id) }}" class="badge badge-secondary">
-                    <i class="far fa-comment"></i>
-                    {{ post.comments.count() }}</a>
+    {% if posts.page == 1 %}
+        {#        <div class="jumbotron">#}
+        {#            <p class="lead"> 有人说，把秘密告诉一个树洞，秘密便永远是秘密，因为树洞永远不曾开口。我找遍了故乡的街，发现那是一句谎言，树的心胸是一圈圈满满的年轮，从来没有留出个洞口，去倾听我的喜怒哀乐。</p>#}
+        {#            <hr class="my-4">#}
+        {#            <p>那些现实中不曾发出的声音，请把它留在这里...</p>#}
+        {#            <a class="btn btn-primary btn-lg" href="{{ url_for('posts.new_post') }}" role="button">寄存一个秘密</a>#}
+        {#        </div>#}
+        <section class="jumbotron">
+            <div class="container">
+                <p class="lead text-muted">
+                    有人说，把秘密告诉一个树洞，秘密便永远是秘密，因为树洞永远不曾开口。
+                    于是我找遍了故乡的街，发现那是一句谎言，树的心胸是一圈圈满满的年轮，从来没有留出个洞口，去倾听我的喜怒哀乐。<br>
+                    现在我找到了这个地方，那些现实中不曾发出的声音，请把它留在这里...
+                </p>
+                <p class="text-center">
+                    <a href="{{ url_for('posts.new_post') }}" class="btn btn-primary my-2">寄存一个秘密</a>
+                </p>
             </div>
-        </article>
+        </section>
+    {% endif %}
+    {% for post in posts.items %}
+        {#        <article class="media content-section">#}
+        {#            <a class="mr-2" href="{{ url_for('users.account', student_id=post.author.student_ID) }}">#}
+        {#                <img class="rounded-circle article-img"#}
+        {#                     src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">#}
+        {#            </a>#}
+        {#            <div class="media-body">#}
+        {#                <div class="article-metadata">#}
+        {#                    {{ post.author.username }}#}
+        {#                    {{ post_time(c=post.date_posted, m=moment) }}#}
+        {#                </div>#}
+        {#                <p class="article-content">{{ post.content }}</p>#}
+        {#                <a href="{{ url_for('posts.post', post_id=post.id) }}" class="badge badge-secondary">#}
+        {#                    <i class="far fa-comment"></i>#}
+        {#                    {{ post.comments.count() }}</a>#}
+        {#            </div>#}
+        {#        </article>#}
+        <div class="card mb-3">
+            <div class="card-body">
+                {#                <h5 class="card-title">Card title</h5>#}
+                <p class="card-text article-content">{{ post.content }}</p>
+                <p class="card-text">
+                    {#                    <a href="{{ url_for('posts.post', post_id=post.id) }}" class="badge badge-secondary">#}
+                    {#                        <i class="far fa-comment"></i>#}
+                    {#                        {{ post.comments.count() }}</a>#}
+                    {{ post_time(c=post.date_posted, m=moment) }}
+                </p>
+            </div>
+        </div>
     {% endfor %}
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">

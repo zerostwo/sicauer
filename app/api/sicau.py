@@ -7,8 +7,8 @@ from requests import exceptions
 
 
 class GetStart:
-    student_id = ""
-    password = ""
+    student_id = "201702420"
+    password = "981211"
     session = requests.Session()
     headers = {
         "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) \
@@ -56,13 +56,11 @@ class Inquire(GetStart):
             examination_arrangement.append(intermediate)
         return examination_arrangement
 
-    def grade_inquiry(self):
+    def grade(self):
         url = "http://jiaowu.sicau.edu.cn/xuesheng/chengji/chengji/bchengjike.asp"
         soup = self.get_soup(url)
         result_html = soup.find_all('font', {'size': '2'})[20:-3]
         grade = []
-        credit = []
-        score = []
         school_year = []
         for i in range(int(len(result_html) / 7)):
             intermediate = {
@@ -96,6 +94,17 @@ class Inquire(GetStart):
                     one['compulsory_weighting'] = round(all_a / all_b, 2)
         return [grade, one]
 
+    def credit(self):
+        url = 'http://jiaowu.sicau.edu.cn/xuesheng/chengji/xdjd/xuefen.asp'
+        soup = self.get_soup(url)
+        # soup_find = soup.find_all('td', {'align': 'center', 'valign': "middle"})
+        soup_find = soup.find_all('div', {'align': 'center'})
+        a = []
+        for i in soup_find:
+            if i.text.strip() != '':
+                a.append(i.text.strip())
+        return [a[-3], a[-4]]
+
     def course_info_clear(self, text):
         init = re.findall('(.+?)<br/>', re.findall('width="13.5%">(.+?)</td>', text)[0])
         c = '--------------------'
@@ -109,13 +118,15 @@ class Inquire(GetStart):
                 course2 = init[p + 1:-1]
                 course_info = {
                     1: {
-                        'course': course1[0],
+                        'course': course1[0].split("：")[0],
+                        'teacher': course1[0].split("：")[1],
                         'location': course1[1],
                         'time': course1[2],
                         'experiment': True if len(course1) == 4 else False
                     },
                     2: {
-                        'course': course2[0],
+                        'course': course2[0].split("：")[0],
+                        'teacher': course2[0].split("：")[1],
                         'location': course2[1],
                         'time': course2[2],
                         'experiment': True if len(course2) == 4 else False
@@ -127,7 +138,8 @@ class Inquire(GetStart):
                 course1 = init[:p]
                 course_info = {
                     1: {
-                        'course': course1[0],
+                        'course': course1[0].split("：")[0],
+                        'teacher': course1[0].split("：")[1],
                         'location': course1[1],
                         'time': course1[2],
                         'experiment': True if len(course1) == 4 else False
@@ -137,6 +149,7 @@ class Inquire(GetStart):
             course_info = {
                 1: {
                     'course': '',
+                    'teacher': '',
                     'location': '',
                     'time': '',
                     'experiment': ''
@@ -157,16 +170,27 @@ class Inquire(GetStart):
         b.encoding = b.apparent_encoding
         soup2 = BeautifulSoup(b.text, features='html5lib')
         courses = soup2.find_all("td", {"width": "13.5%", "valign": "top", "align": "center", "height": "50"})
+        # curriculum = {}
+        # weeks = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        # for i in range(len(weeks)):
+        #     curriculum[weeks[i]] = {
+        #         1: self.course_info_clear(str(courses[0 + i])),
+        #         2: self.course_info_clear(str(courses[7 + i])),
+        #         3: self.course_info_clear(str(courses[14 + i])),
+        #         4: self.course_info_clear(str(courses[21 + i])),
+        #         5: self.course_info_clear(str(courses[28 + i]))
+        #     }
         curriculum = {}
-        weeks = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-        for i in range(len(weeks)):
-            curriculum[weeks[i]] = {
-                1: self.course_info_clear(str(courses[0 + i])),
-                2: self.course_info_clear(str(courses[7 + i])),
-                3: self.course_info_clear(str(courses[14 + i])),
-                4: self.course_info_clear(str(courses[21 + i])),
-                5: self.course_info_clear(str(courses[28 + i]))
-            }
+        for i in range(5):
+            curriculum[i] = [
+                self.course_info_clear(str(courses[0 + 7 * i])),
+                self.course_info_clear(str(courses[1 + 7 * i])),
+                self.course_info_clear(str(courses[2 + 7 * i])),
+                self.course_info_clear(str(courses[3 + 7 * i])),
+                self.course_info_clear(str(courses[4 + 7 * i])),
+                self.course_info_clear(str(courses[5 + 7 * i])),
+                self.course_info_clear(str(courses[6 + 7 * i]))
+            ]
         return curriculum
 
     def faculty(self):
@@ -218,5 +242,4 @@ class Inquire(GetStart):
 
 
 if __name__ == '__main__':
-    inquire = Inquire()
-    print(inquire.grade_inquiry()[1])
+    pass

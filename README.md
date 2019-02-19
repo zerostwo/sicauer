@@ -223,6 +223,37 @@ Bootstrap(app)
 其中值得注意的是，在一行中的`{% extends "bootstrap/base.html" %}`，这个的意思是使用`extends`指令从`bootstrap`中导入`bootstrap/base.html`，也就是引入了Bootstrap中的所有CSS和JS文件。
 
 
-
-
-
+下面图中是我购买了的苹果商店付费软件的一部分，价格从几元到百元不等。
+高于10元的软件按5元一个售卖，低于10元的在购买后按需求附赠，账号提供永久更新，请放心购买。
+需要的朋友可以直接私聊我，我看到消息后立即回复您。
+包括但不限于以下软件：
+- 办公学习类：
+    GoodNotes4 + GoodNotes5
+    Scanner Pro
+    PDF expert6
+    Noteself2
+    Notability
+    MarginNote3
+    蒙哥英语原版阅读器
+    等等
+    
+- 摄影、图片处理类：
+    Enlight完整内购版
+    Videoleap完整内购版
+    Pixaloop完整内购版
+    Relook
+    MaxCurve
+    等等
+    
+- 工具类：
+    Thor + Shu + Anubis
+    Procreate
+    Procreate Pocket
+    小火箭
+    JSBox
+    Prompt2
+    Pythonista3
+    nPlayer Plus
+    彩云天气Pro
+    Duet Display
+    等等

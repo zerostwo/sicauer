@@ -4,8 +4,8 @@ from wtforms.validators import DataRequired
 
 
 class PostForm(FlaskForm):
-    content = TextAreaField('Content', validators=[DataRequired()])
-    submit = SubmitField('Post')
+    content = TextAreaField('那些现实中不曾发出的声音，请把它留在这里...', validators=[DataRequired()])
+    submit = SubmitField('寄存')
 
 
 class CommentForm(FlaskForm):

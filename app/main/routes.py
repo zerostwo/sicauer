@@ -22,7 +22,7 @@ def about():
 
 @main.route('/get_my_ip', methods=['GET'])
 def get_my_ip():
-    ip = request.remote_addr
+    ip = request.headers['X-Forwarded-For']
     # url = f'http://api.ipstack.com/{ip}?access_key=341690b835d7bde8702d3bb6d99e4d3a'
     # r = requests.get(url)
     # j = json.loads(r.text)
