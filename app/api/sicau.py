@@ -103,7 +103,7 @@ class Inquire(GetStart):
         for i in soup_find:
             if i.text.strip() != '':
                 a.append(i.text.strip())
-        return [a[-3], a[-4]]
+        return [a[-4], a[-5], a]
 
     def course_info_clear(self, text):
         init = re.findall('(.+?)<br/>', re.findall('width="13.5%">(.+?)</td>', text)[0])
@@ -242,4 +242,6 @@ class Inquire(GetStart):
 
 
 if __name__ == '__main__':
-    pass
+    a = Inquire()
+    b = a.credit()
+    print(b)
