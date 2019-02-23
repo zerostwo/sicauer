@@ -7,8 +7,8 @@ from requests import exceptions
 
 
 class GetStart:
-    student_id = "201702420"
-    password = "981211"
+    student_id = "201802435"
+    password = "212699"
     session = requests.Session()
     headers = {
         "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) \
@@ -243,5 +243,5 @@ class Inquire(GetStart):
 
 if __name__ == '__main__':
     a = Inquire()
-    b = a.credit()
+    b = a.grade()
     print(b)
