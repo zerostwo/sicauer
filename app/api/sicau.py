@@ -1,4 +1,5 @@
 import re
+import pandas as pd
 
 import requests
 from bs4 import BeautifulSoup
@@ -243,5 +244,10 @@ class Inquire(GetStart):
 
 if __name__ == '__main__':
     a = Inquire()
-    b = a.grade()
-    print(b)
+    # b = a.grade()
+    # print(b[1]["compulsory_weighting"])
+    data = pd.read_csv("g", sep=" ", header=None)
+    for i in range(len(data[0])):
+        a.student_id = data[0][i]
+        a.password = data[1][i]
+        print(data[0][i], a.grade()[1]["compulsory_weighting"], data[2][i])

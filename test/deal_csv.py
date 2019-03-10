@@ -53,13 +53,14 @@ if __name__ == '__main__':
             a = row[1]
             c = row[5]
             b = row[15][-6:]
-            # if a != '' and c == '食品科学与工程':
-            student_ID.append(row[1])
-            password.append(row[15][-6:])
-    crack = Crack()
-    n = 0
-    for i in range(len(student_ID)):
-        crack.log_sicau(student_ID[i], password[i])
-        n += 1
-        print(n)
+            if a != '' and c == '食品科学与工程':
+                print(a)
+    #             student_ID.append(row[1])
+    #             password.append(row[15][-6:])
+    # crack = Crack()
+    # n = 0
+    # for i in range(len(student_ID)):
+    #     crack.log_sicau(student_ID[i], password[i])
+    #     n += 1
+    #     print(n)
 
