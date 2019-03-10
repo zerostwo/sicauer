@@ -39,8 +39,8 @@
             </p>
         </div>
     </div>
-    <h4 class="text-center">属于我的树洞({{ user.posts.count() }})</h4>
-    {% for post in user.posts %}
+{#    <h4 class="text-center">属于我的树洞({{ user.posts.count() }})</h4>#}
+{#    {% for post in user.posts %}#}
         {#        <article class="media content-section">#}
         {#            <a class="mr-2" href="{{ url_for('users.account', student_id=post.author.student_ID) }}">#}
         {#                <img class="rounded-circle article-img"#}
@@ -57,19 +57,19 @@
         {#                    {{ post.comments.count() }}</a>#}
         {#            </div>#}
         {#        </article>#}
-        <div class="card mb-3">
-            <div class="card-body">
+{#        <div class="card mb-3">#}
+{#            <div class="card-body">#}
                 {#                <h5 class="card-title">Card title</h5>#}
-                <p class="card-text">{{ post.content }}</p>
-                <p class="card-text">
+{#                <p class="card-text">{{ post.content }}</p>#}
+{#                <p class="card-text">#}
                     {#                    <a href="{{ url_for('posts.post', post_id=post.id) }}" class="badge badge-secondary">#}
                     {#                        <i class="far fa-comment"></i>#}
                     {#                        {{ post.comments.count() }}</a>#}
-                    {{ post_time(c=post.date_posted, m=moment) }}
-                </p>
-            </div>
-        </div>
-    {% endfor %}
+{#                    {{ post_time(c=post.date_posted, m=moment) }}#}
+{#                </p>#}
+{#            </div>#}
+{#        </div>#}
+{#    {% endfor %}#}
     <script>
         function changeImage() {
             element = document.getElementById('more_info')

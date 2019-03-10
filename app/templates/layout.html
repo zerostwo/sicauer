@@ -18,8 +18,6 @@
               integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
               crossorigin="anonymous">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-        {#        {{ dropzone.load_css() }}#}
-        {#        {{ dropzone.style('border: 2px dashed #0087F7; margin: 10%') }}#}
     {% endblock %}
     <script src="{{ url_for('static', filename = 'js/echarts.min.js') }}"></script>
 </head>
@@ -51,9 +49,9 @@
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     {% if current_user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('posts.new_post') }}"><b>寄存</b></a>
-                        </li>
+                        {#                        <li class="nav-item">#}
+                        {#                            <a class="nav-link" href="{{ url_for('posts.new_post') }}"><b>寄存</b></a>#}
+                        {#                        </li>#}
                         <li class="nav-item dropdown ">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -134,6 +132,6 @@
 </script>
 {{ moment.include_moment() }}
 {{ moment.lang("zh-CN") }}
-{#{{ dropzone.load_js() }}#}
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
 </body>
 </html>
