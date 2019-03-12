@@ -17,11 +17,10 @@ def grade():
     scores = list(one.values())[:-1]
     w1 = list(one.keys())[-1]
     w2 = list(one.values())[-1]
-    credit = inquire.credit()
-    a = credit[0]
-    b = credit[1]
-    return render_template('grade.html', grades=grades, one=one, subjects=subjects, scores=scores, w1=w1, w2=w2, a=a,
-                           b=b, title='成绩信息')
+    # credit = inquire.credit()
+    # a = credit[0]
+    # b = credit[1]
+    return render_template('grade.html', grades=grades, one=one, subjects=subjects, scores=scores, w1=w1, w2=w2, title='成绩信息')
 
 
 @api.route("/personal_info")
