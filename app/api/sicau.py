@@ -8,8 +8,8 @@ from requests import exceptions
 
 
 class GetStart:
-    student_id = "201802435"
-    password = "212699"
+    student_id = "201702420"
+    password = "981211"
     session = requests.Session()
     headers = {
         "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) \
@@ -32,7 +32,36 @@ class GetStart:
         else:
             data = self.session.get(url, timeout=5)
             data.encoding = 'gb2312'
-            return BeautifulSoup(data.text, features='html5lib')
+            return BeautifulSoup(data.text, features='lxml')
+
+    def cet(self):
+        url = "http://jiaowu.sicau.edu.cn/xuesheng/kao/bao/yycj.asp"
+        data1 = {'user': self.student_id, 'pwd': self.password, 'lb': 'S', 'submit': '', 'sign': self.get_sign()}
+        post_url = 'http://jiaowu.sicau.edu.cn/jiaoshi/bangong/check.asp'
+        self.session.post(post_url, data=data1, timeout=5, headers=self.headers)
+        data = {
+            "dj": "89321196860502778935097686683832"
+        }
+        data = self.session.post(url, data=data, timeout=5)
+        data.encoding = 'gb2312'
+        soup = BeautifulSoup(data.text, features='html5lib')
+        r = soup.findAll("td", {"width": "50"})
+        return r[6].text
+
+    def cet6(self):
+        url = "http://jiaowu.sicau.edu.cn/xuesheng/kao/bao/yycj.asp"
+        url = "http://jiaowu.sicau.edu.cn/xuesheng/kao/bao/yycj.asp"
+        data1 = {'user': self.student_id, 'pwd': self.password, 'lb': 'S', 'submit': '', 'sign': self.get_sign()}
+        post_url = 'http://jiaowu.sicau.edu.cn/jiaoshi/bangong/check.asp'
+        self.session.post(post_url, data=data1, timeout=5, headers=self.headers)
+        data = {
+            "dj": "86041597861062128606986789370776"
+        }
+        data = self.session.post(url, data=data, timeout=5)
+        data.encoding = 'gb289321196860502778935097686683832312'
+        soup = BeautifulSoup(data.text, features='html5lib')
+        r = soup.findAll("td", {"width": "50"})
+        return r[6].text
 
 
 class Inquire(GetStart):
@@ -244,5 +273,11 @@ class Inquire(GetStart):
 
 if __name__ == '__main__':
     a = Inquire()
-    b = a.credit()
-    print(b)
+    t = pd.read_csv("./ddd", header=None, sep=" ")
+    for i in range(len(t[0])):
+        a.student_id = t[0][i]
+        a.password = t[1][i]
+        try:
+            print(t[0][i], t[2][i], a.cet6())
+        except:
+            print(t[0][i], t[2][i], "No")
