@@ -1,58 +1,6 @@
 {% extends "layout.html" %}
 {% from 'macros.html' import post_time %}
 {% block content %}
-    <style>
-        body {
-            height: 100%;
-            margin: 0;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        #app {
-            position: absolute;
-            top: 50%;
-            right: 0;
-            left: 0;
-            width: 180px;
-            height: 20px;
-            margin: 0 auto;
-            transform: translateY(-50%);
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .button {
-            width: 20px;
-            height: 20px;
-            float: left;
-            margin-right: 20px;
-            background-color: #000;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: 0.3s ease width;
-        }
-
-        .button:last-child {
-            margin-right: 0;
-        }
-
-        .button.active {
-            width: 60px;
-            cursor: auto;
-        }
-    </style>
-
-    <div id="app">
-        <div class="button active"></div>
-        <div class="button"></div>
-        <div class="button"></div>
-        <div class="button"></div>
-    </div>
-
-
-
-
     {#    {% if posts.page == 1 %}#}
     {#        <section class="jumbotron">#}
     {#            <div class="container">#}
