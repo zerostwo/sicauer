@@ -95,7 +95,7 @@ class Inquire(GetStart):
         for i in range(int(len(result_html) / 7)):
             intermediate = {
                 "num": result_html[i * 7].string,
-                "course": result_html[i * 7 + 1].string.strip(),
+                "course": result_html[i * 7 + 1].string.strip().replace("&nbsp", ""),
                 "grade": result_html[i * 7 + 2].text.strip(),
                 "credit": result_html[i * 7 + 3].string,
                 "nature": result_html[i * 7 + 4].string,
@@ -273,11 +273,5 @@ class Inquire(GetStart):
 
 if __name__ == '__main__':
     a = Inquire()
-    t = pd.read_csv("./ddd", header=None, sep=" ")
-    for i in range(len(t[0])):
-        a.student_id = t[0][i]
-        a.password = t[1][i]
-        try:
-            print(t[0][i], t[2][i], a.cet6())
-        except:
-            print(t[0][i], t[2][i], "No")
+    b = a.grade()
+    print(b[0][1]['course'].replace("&nbsp", ""))
