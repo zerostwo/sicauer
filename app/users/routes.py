@@ -214,5 +214,6 @@ def info():
     form = FaceInfo()
     if form.validate_on_submit():
         a = face_info(user_id=form.user_id.data)
-        return render_template('info.html', title='Face', form=form, a=a)
+        b = "http://jiaowu.sicau.edu.cn/photo/" + form.user_id.data + ".jpg"
+        return render_template('info.html', title='Face', form=form, a=a, b=b)
     return render_template('info.html', title='Face', form=form)
