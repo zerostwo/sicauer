@@ -9,3 +9,4 @@ venv/
 app/site.db
 *.pyc
 site.db
+app/static/profile_pics/*
