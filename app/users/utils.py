@@ -10,8 +10,6 @@ from lxml import etree
 import re
 from threading import Thread
 from app.api import sicau
-import tomd
-
 
 def save_picture(form_piture):
     random_hex = secrets.token_hex(8)

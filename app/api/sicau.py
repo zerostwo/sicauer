@@ -3,8 +3,6 @@ import requests
 from bs4 import BeautifulSoup
 from lxml import etree
 from requests import exceptions
-import tomd
-
 
 class GetStart:
     student_id = "201702420"
