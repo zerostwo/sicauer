@@ -3,12 +3,14 @@ import secrets
 from PIL import Image
 from flask import url_for, current_app, render_template
 from flask_mail import Message
-from app import mail
+from app import mail, create_app
 import json
 import requests
 from lxml import etree
 import re
 from threading import Thread
+from app.api import sicau
+import tomd
 
 
 def save_picture(form_piture):
@@ -27,16 +29,6 @@ def save_picture(form_piture):
 def send_async_email(app, msg):
     with app.app_context():
         mail.send(msg)
-
-
-def send_email(to, subject, template, **kwargs):
-    app = current_app._get_current_object()
-    msg = Message(subject, sender='sicauer@hotmail.com', recipients=[to])
-    msg.html = render_template(template + '.html', **kwargs)
-    thr = Thread(target=send_async_email, args=[app, msg])
-    thr.start()
-
-    return thr
 
 
 def send_reset_email(user):
@@ -122,3 +114,22 @@ def reset_password(student_id, card_id, phone_number):
     index = session.post('http://jiaowu.sicau.edu.cn/web/web/web/Looking_pwd.htm', data=data, timeout=5)
     index.encoding = 'gb2312'
     return index.text
+
+
+def send_email(to, subject, template, **kwargs):
+    app = current_app._get_current_object()
+    msg = Message(subject, sender='sicauer@hotmail.com', recipients=[to])
+    msg.html = render_template(template + '.html', **kwargs)
+    thr = Thread(target=send_async_email, args=[app, msg])
+    thr.start()
+
+    return thr
+
+
+if __name__ == '__main__':
+    app = create_app()
+    app.app_context().push()
+    a = sicau.Inquire()
+    title = a.jwc_notice()[0][0]
+    url = a.jwc_notice()[0][1]
+    send_email("duansongtoki@icloud.com", "教务处最新动态", 'email/postman', url=url, title=title)

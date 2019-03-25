@@ -162,3 +162,10 @@ a.article-title:hover {
 .jumbotron .container {
     max-width: 40rem;
 }
+
+
+.img-responsive {
+    display: block;
+    height: auto;
+    max-width: 100%;
+}

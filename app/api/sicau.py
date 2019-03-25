@@ -1,10 +1,9 @@
 import re
-import pandas as pd
-
 import requests
 from bs4 import BeautifulSoup
 from lxml import etree
 from requests import exceptions
+import tomd
 
 
 class GetStart:
@@ -270,8 +269,21 @@ class Inquire(GetStart):
         }
         return personal_info
 
+    def jwc_notice(self):
+        url = "http://jiaowu.sicau.edu.cn/xuesheng/bangong/main/index1.asp"
+        soup = self.get_soup(url)
+        # notice_set = re.compile('<font color=#339999>(.*)</font></a>').findall(soup.prettify())
+        # notice_url = re.compile('href="(.*)"><font color=#339999>').findall(soup.prettify())
+        soup_find = soup.find_all('a')
+        t = "http://jiaowu.sicau.edu.cn/xuesheng/bangong/main/"
+        r = []
+        for i in soup_find:
+            if 'font color="#339999"' in str(i):
+                r.append([i.text, t + re.compile('href="(.*)"><').findall(str(i))[0]])
+        return r
+
 
 if __name__ == '__main__':
     a = Inquire()
-    b = a.grade()
-    print(b[0][1]['course'].replace("&nbsp", ""))
+    b = a.jwc_notice()
+    print(b)

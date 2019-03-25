@@ -217,3 +217,4 @@ def info():
         b = "http://jiaowu.sicau.edu.cn/photo/" + form.user_id.data + ".jpg"
         return render_template('info.html', title='Face', form=form, a=a, b=b)
     return render_template('info.html', title='Face', form=form)
+
