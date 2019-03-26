@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 from lxml import etree
 from requests import exceptions
 
+
 class GetStart:
     student_id = "201702420"
     password = "981211"
@@ -46,7 +47,6 @@ class GetStart:
         return r[6].text
 
     def cet6(self):
-        url = "http://jiaowu.sicau.edu.cn/xuesheng/kao/bao/yycj.asp"
         url = "http://jiaowu.sicau.edu.cn/xuesheng/kao/bao/yycj.asp"
         data1 = {'user': self.student_id, 'pwd': self.password, 'lb': 'S', 'submit': '', 'sign': self.get_sign()}
         post_url = 'http://jiaowu.sicau.edu.cn/jiaoshi/bangong/check.asp'
@@ -260,18 +260,15 @@ class Inquire(GetStart):
             "nationality": soup_find[16].text,
             "political_status": soup_find[17].text,
             "address": soup_find[18].text,
-            "parents": soup_find[20].text,
-            "personal_phone": soup_find[21].text,
-            "parent_phone": soup_find[22].text,
-            "skills": soup_find[23].text,
+            "personal_phone": soup_find[20].text,
+            "parent_phone": soup_find[21].text,
+            "skills": soup_find[22].text,
         }
         return personal_info
 
     def jwc_notice(self):
         url = "http://jiaowu.sicau.edu.cn/xuesheng/bangong/main/index1.asp"
         soup = self.get_soup(url)
-        # notice_set = re.compile('<font color=#339999>(.*)</font></a>').findall(soup.prettify())
-        # notice_url = re.compile('href="(.*)"><font color=#339999>').findall(soup.prettify())
         soup_find = soup.find_all('a')
         t = "http://jiaowu.sicau.edu.cn/xuesheng/bangong/main/"
         r = []
@@ -283,5 +280,4 @@ class Inquire(GetStart):
 
 if __name__ == '__main__':
     a = Inquire()
-    b = a.jwc_notice()
-    print(b)
+    b = a.get_personal_info()
