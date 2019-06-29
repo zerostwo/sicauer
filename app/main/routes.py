@@ -1,5 +1,5 @@
 from flask import render_template, Blueprint, request, jsonify
-# from app.models import Post, Comment
+from app.models import Post, Comment
 import requests
 import json
 
@@ -9,10 +9,10 @@ main = Blueprint('main', __name__)
 @main.route("/")
 # @main.route("/home/")
 def home():
-    # page = request.args.get('page', 1, type=int)
-    # posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
-    # comments = Comment.query.all()
-    # return render_template('index.html', posts=posts, comments=comments)
+    page = request.args.get('page', 1, type=int)
+    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
+    comments = Comment.query.all()
+    return render_template('index.html', posts=posts, comments=comments)
     return render_template('index.html')
 
 

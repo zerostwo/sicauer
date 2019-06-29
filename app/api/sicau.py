@@ -281,3 +281,4 @@ class Inquire(GetStart):
 if __name__ == '__main__':
     a = Inquire()
     b = a.get_personal_info()
+    print(b)
