@@ -48,11 +48,13 @@ def create_app(config_class=Config):
     from app.errors.handlers import errors
     from app.api.routes import api
     from app.dashboard.routes import dashboard
+    from app.wx.routes import wx
     app.register_blueprint(users)
     app.register_blueprint(posts)
     app.register_blueprint(main)
     app.register_blueprint(errors)
     app.register_blueprint(api)
     app.register_blueprint(dashboard)
+    app.register_blueprint(wx)
 
     return app

@@ -1,18 +1,20 @@
-from flask import render_template, Blueprint, request, jsonify
-from app.models import Post, Comment
+from flask import render_template, Blueprint, request, jsonify, abort, url_for
+# from app.models import Post, Comment
 import requests
 import json
+import os
+import random
 
 main = Blueprint('main', __name__)
 
 
-@main.route("/")
+@main.route("/bqb")
 # @main.route("/home/")
 def home():
-    page = request.args.get('page', 1, type=int)
-    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
-    comments = Comment.query.all()
-    return render_template('index.html', posts=posts, comments=comments)
+    # page = request.args.get('page', 1, type=int)
+    # posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
+    # comments = Comment.query.all()
+    # return render_template('index.html', posts=posts, comments=comments)
     return render_template('index.html')
 
 
@@ -20,6 +22,17 @@ def home():
 def about():
     return render_template('about.html', title='关于我们')
 
+@main.route('/apple')
+def apple():
+    return render_template('email/apple.html', title='关于我们')
+
+@main.route('/postman')
+def postman():
+    return render_template('email/postman.html', title='关于我们')
+
+@main.route('/sendgrid')
+def sendgrid():
+    return render_template('email/sendgrid.html', title='关于我们')
 
 @main.route('/get_my_ip', methods=['GET'])
 def get_my_ip():
@@ -32,3 +45,12 @@ def get_my_ip():
     r = requests.get(b)
     j = json.loads(r.text)
     return jsonify(j), 200
+
+#@main.route('/bqb', methods=['GET'])
+@main.route("/")
+def bqb():
+   images = os.listdir("app/static/bqb")
+   random_image = random.choice(images)
+   image_path = "static/bqb/" + random_image
+   image_name = random_image[:-4]
+   return render_template('bqb.html', image_path=image_path, image_name=image_name)
