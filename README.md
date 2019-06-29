@@ -13,9 +13,9 @@
 [![](https://img.shields.io/github/license/zerostwo/sicauer.svg)](https://github.com/zerostwo/sicauer/blob/master/LICENSE)
 ![](http://progressed.io/bar/19?title=Done)
 
-我的开发环境是基于`Ubuntu 18.04.1 LST`系统环境下的`Python 3.7.0`，IDE使用的`PyCharm Professional Edition`，在这个项目中我所使用的所有Python包及其版本号我都会记录在[`requirements.txt`](https://github.com/zerostwo/Flask-web/blob/master/requirements.txt)文件中。可以使用以下命令批量安装我所使用的包：
+我的开发环境是基于`Ubuntu 18.04.1 LST`系统环境下的`Python 3.7.1`，IDE使用的`PyCharm Professional Edition`，在这个项目中我所使用的所有Python包及其版本号我都会记录在[`requirements.txt`](https://github.com/zerostwo/sicauer/blob/master/requirements.txt)文件中。可以使用以下命令批量安装我所使用的包：
 ```bash
-$ wget https://raw.githubusercontent.com/zerostwo/Flask-web/master/requirements.txt      
+$ wget https://github.com/zerostwo/sicauer/blob/master/requirements.txt      
 $ pip install -r requirement.txt
 ```
 ### 使用虚拟环境中的pip安装flask框架
@@ -23,10 +23,10 @@ $ pip install -r requirement.txt
 ```bash
 $ sudo apt-get install python-virtualenv
 ```
-工具安装好以后，任意新建一个文件夹存放之后的所有文件。这里我新建一个名为`Flask_web`的文件夹：
+工具安装好以后，任意新建一个文件夹存放之后的所有文件。这里我新建一个名为`sicauer`的文件夹：
 ```bash
-$ mkdir Flask_web
-$ cd Flask_web
+$ mkdir sicauer
+$ cd sicauer
 ```
 进入新建文件夹后，使用`virtualenv`创建一个虚拟环境`venv`（通常虚拟环境都被命名为这个）：
 ```bash
@@ -221,41 +221,3 @@ Bootstrap(app)
 {% endblock %}
 ```
 其中值得注意的是，在一行中的`{% extends "bootstrap/base.html" %}`，这个的意思是使用`extends`指令从`bootstrap`中导入`bootstrap/base.html`，也就是引入了Bootstrap中的所有CSS和JS文件。
-
-
-下面图中是我购买了的苹果商店付费软件的一部分，价格从几元到百元不等。
-高于10元的软件按5元一个售卖，低于10元的在购买后按需求附赠，账号提供永久更新，请放心购买。
-需要的朋友可以直接私聊我，我看到消息后立即回复您。
-包括但不限于以下软件：
-- 办公学习类：
-    GoodNotes4 + GoodNotes5
-    Scanner Pro
-    PDF expert6
-    Noteself2
-    Notability
-    MarginNote3
-    蒙哥英语原版阅读器
-    等等
-    
-- 摄影、图片处理类：
-    Enlight完整内购版
-    Videoleap完整内购版
-    Pixaloop完整内购版
-    Relook
-    MaxCurve
-    等等
-    
-- 工具类：
-    Thor + Shu + Anubis
-    Procreate
-    Procreate Pocket
-    小火箭
-    JSBox
-    Prompt2
-    Pythonista3
-    nPlayer Plus
-    彩云天气Pro
-    Duet Display
-    等等
-
-oo
