@@ -65,8 +65,7 @@ def register():
 @users.route('/login/', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        # return redirect(url_for('main.home'))
-        return redirect("/")
+        return redirect(url_for('main.home'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(student_ID=form.student_ID.data).first()
@@ -82,8 +81,7 @@ def login():
 @users.route('/logout/')
 def logout():
     logout_user()
-    # return redirect(url_for('main.home'))
-    return redirect("/")
+    return redirect(url_for('main.home'))
 
 
 @users.route("/account/<string:student_id>")

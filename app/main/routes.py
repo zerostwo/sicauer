@@ -15,7 +15,7 @@ def bqb():
     # posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
     # comments = Comment.query.all()
     # return render_template('index.html', posts=posts, comments=comments)
-    return render_template('index.html')
+    return render_template('bqb.html')
 
 
 @main.route('/about')
@@ -53,4 +53,5 @@ def home():
    random_image = random.choice(images)
    image_path = "static/bqb/" + random_image
    image_name = random_image[:-4]
-   return render_template('bqb.html', image_path=image_path, image_name=image_name)
+   return render_template('index.html', image_path=image_path, image_name=image_name)
+
