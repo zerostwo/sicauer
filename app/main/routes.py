@@ -10,7 +10,7 @@ main = Blueprint('main', __name__)
 
 @main.route("/bqb")
 # @main.route("/home/")
-def home():
+def bqb():
     # page = request.args.get('page', 1, type=int)
     # posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
     # comments = Comment.query.all()
@@ -48,7 +48,7 @@ def get_my_ip():
 
 #@main.route('/bqb', methods=['GET'])
 @main.route("/")
-def bqb():
+def home():
    images = os.listdir("app/static/bqb")
    random_image = random.choice(images)
    image_path = "static/bqb/" + random_image

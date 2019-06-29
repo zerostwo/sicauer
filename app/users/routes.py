@@ -45,7 +45,7 @@ def register():
                 nationality=personal_info['nationality'],
                 political_status=personal_info['political_status'],
                 address=personal_info['address'],
-                parents=personal_info['parents'],
+                # parents=personal_info['parents'],
                 personal_phone=personal_info['personal_phone'],
                 parent_phone=personal_info['parent_phone'],
                 skills=personal_info['skills'],

@@ -130,4 +130,4 @@ if __name__ == '__main__':
     a = sicau.Inquire()
     title = a.jwc_notice()[0][0]
     url = a.jwc_notice()[0][1]
-    send_email("duansongtoki@icloud.com", "教务处最新动态", 'email/postman', url=url, title=title)
+    send_email("duansongtoki@icloud.com", "教务处最新动态", 'email/info', url=url, title=title)
