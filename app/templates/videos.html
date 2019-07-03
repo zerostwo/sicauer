@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block content %}
+   {% for video_name in videos %}
+   <p>{{ video_name }}</p></br>
+   <video width="320" height="240" controls="controls" autoplay="autoplay">
+   <source src="static/videos/{{ video_name}}" type="video/mp4" />
+   </video>
+   {% endfor %}
+</div>
+{% endblock %}

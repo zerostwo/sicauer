@@ -55,3 +55,7 @@ def home():
    image_name = random_image[:-4]
    return render_template('index.html', image_path=image_path, image_name=image_name)
 
+@main.route("/video", methods=["GET"])
+def video():
+   videos = os.listdir("app/static/videos/")
+   return render_template('videos.html', videos=videos)
