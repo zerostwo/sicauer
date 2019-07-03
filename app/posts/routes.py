@@ -3,25 +3,24 @@ from flask_login import current_user, login_required
 from app import db
 from app.models import Post, Comment, Reply
 from app.posts.forms import PostForm, CommentForm, ReplyForm
-import os
 
 posts = Blueprint('posts', __name__)
 
 
-@posts.route('/post/new', methods=['GET', 'POST'])
-@login_required
-def new_post():
-    form = PostForm()
-    if form.validate_on_submit():
-        post = Post(content=form.content.data, author=current_user)
-        db.session.add(post)
-        db.session.commit()
-        flash('您的秘密已经寄存！', 'success')
-        return redirect(url_for('main.home'))
-    # if request.method == 'POST':
-    # f = request.files.get('file')
-    # f.save(os.path.join(url_for('static', filename='uploads'), f.filename))
-    return render_template('create_post.html', title='树洞', form=form, legend="树洞")
+# @posts.route('/post/new', methods=['GET', 'POST'])
+# @login_required
+# def new_post():
+#     form = PostForm()
+#     if form.validate_on_submit():
+#         post = Post(content=form.content.data, author=current_user)
+#         db.session.add(post)
+#         db.session.commit()
+#         flash('您的秘密已经寄存！', 'success')
+#         return redirect(url_for('main.home'))
+#     # if request.method == 'POST':
+#     # f = request.files.get('file')
+#     # f.save(os.path.join(url_for('static', filename='uploads'), f.filename))
+#     return render_template('create_post.html', title='树洞', form=form, legend="树洞")
 
 
 @posts.route('/post/<int:post_id>/', methods=['GET', 'POST'])
@@ -77,3 +76,35 @@ def delete_post(post_id):
     db.session.commit()
     flash('您的帖子已被删除！', 'success')
     return redirect(url_for('main.home'))
+
+
+@posts.route("/test_1")
+def test_1():
+    mkd = '''
+    # header
+    ## header2
+    [picture](http://www.example.com)
+    * 1
+    * 2
+    * 3
+    **bold**
+    '''
+    return render_template('test_1.html', mkd=mkd)
+
+
+@posts.route('/post/new', methods=['GET', 'POST'])
+@login_required
+def new_post():
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post(content=form.content.data, author=current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash('您的秘密已经寄存！', 'success')
+        return redirect(url_for('main.home'))
+    # if request.method == 'POST':
+    # f = request.files.get('file')
+    # f.save(os.path.join(url_for('static', filename='uploads'), f.filename))
+    return render_template('test_1.html', title='树洞', form=form, legend="树洞")
+
+

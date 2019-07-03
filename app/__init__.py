@@ -42,6 +42,7 @@ def create_app(config_class=Config):
     moment.init_app(app)
     dropzone.init_app(app)
     migrate.init_app(app, db)
+
     from app.users.routes import users
     from app.posts.routes import posts
     from app.main.routes import main
