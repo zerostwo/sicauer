@@ -30,7 +30,8 @@ class Jiaowuchu:
         """
         r = self.session.get(url)
         r.encoding = 'gb2312'
-        return BeautifulSoup(r.text, features='lxml')
+        return BeautifulSoup(r.text, features='html5lib')
+        # return BeautifulSoup(r.text, features='lxml')
 
     def signValue(self):
         """
@@ -181,7 +182,12 @@ class Jiaowuchu:
             })
         return results
 
+    def zytongbf(self):
+        url = "http://jiaowu.sicau.edu.cn/xuesheng/chengji/chengji/zytongbf.asp"
+        soup = self.getSoup(url)
+        return soup
 
 if __name__ == '__main__':
     a = Jiaowuchu()
-    print(a.getAnnouncement())
+    b = a.zytongbf()
+    print(b)
