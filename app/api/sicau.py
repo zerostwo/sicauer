@@ -277,8 +277,17 @@ class Inquire(GetStart):
                 r.append([i.text, t + re.compile('href="(.*)"><').findall(str(i))[0]])
         return r
 
+    def zytongbf(self):
+        url = "http://jiaowu.sicau.edu.cn/xuesheng/chengji/chengji/zytongbf.asp"
+        # soup = self.getSoup(url)
+        # r = soup.find_all("td", {"class": "g_body"})
+        # return r
+        r = self.session.get(url)
+        r.encoding = r.apparent_encoding
+        return r.text
+
 
 if __name__ == '__main__':
     a = Inquire()
-    b = a.get_personal_info()
+    b = a.zytongbf()
     print(b)
