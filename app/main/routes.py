@@ -54,6 +54,13 @@ def home():
    image_path = "static/bqb/" + random_image
    image_name = random_image[:-4]
    return render_template('index.html', image_path=image_path, image_name=image_name)
+@main.route("/one")
+def one():
+   images = os.listdir("app/static/one")
+   random_image = random.choice(images)
+   image_path = "static/one/" + random_image
+   image_name = random_image[:-4]
+   return render_template('one.html', image_path=image_path, image_name=image_name)
 
 @main.route("/video", methods=["GET"])
 def video():
