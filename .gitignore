@@ -6,9 +6,7 @@ __pycache__/
 venv/
 .idea/
 .git/
-app/site.db
 *.pyc
-site.db
 app/static/profile_pics/*
 app/static/bqb/*
 app/static/videos/*
