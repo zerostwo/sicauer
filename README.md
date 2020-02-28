@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/zerostwo/sicauer" rel="nofollow">
-    <img src="https://github.com/zerostwo/zzmath/blob/master/app/static/favicon.ico" alt="CodyHouse logo" width="80" height="80" data-canonical-src="https://zerostwo.github.io/favicon.png" style="max-width:100%;">
+    <img src="https://zzmath.top/static/favicon.ico" alt="CodyHouse logo" width="80" height="80" data-canonical-src="https://zerostwo.github.io/favicon.png" style="max-width:100%;">
   </a>
 </p>
 
