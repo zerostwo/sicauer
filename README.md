@@ -1,21 +1,21 @@
 <p align="center">
   <a href="https://github.com/zerostwo/sicauer" rel="nofollow">
-    <img src="https://img.cdn.zzmath.top/36BB5105-D1F0-4B0D-86D3-990F88E66AC4.png" alt="CodyHouse logo" width="80" height="80" data-canonical-src="https://zerostwo.github.io/favicon.png" style="max-width:100%;">
+    <img src="https://github.com/zerostwo/zzmath/blob/master/app/static/favicon.ico" alt="CodyHouse logo" width="80" height="80" data-canonical-src="https://zerostwo.github.io/favicon.png" style="max-width:100%;">
   </a>
 </p>
 
 基于Python的Web应用开发，冲鸭:grin:！
 ---
-[![](https://img.shields.io/badge/Ubuntu-18.04.1%20LTS-orange.svg)](https://www.ubuntu.com/download/desktop)
+[![](https://img.shields.io/badge/Ubuntu-18.04.4%20LTS-orange.svg)](https://www.ubuntu.com/download/desktop)
 [![](https://img.shields.io/badge/Python-3.7.4-blue.svg)](https://www.python.org/downloads/release/python-370/)
 [![](https://img.shields.io/badge/Flask-1.1.1-red.svg)](http://flask.pocoo.org/)
-[![](https://img.shields.io/badge/IDE-Pycharm-green.svg)](https://www.jetbrains.com/pycharm/)
+[![](https://img.shields.io/badge/IDE-Vim-green.svg)](https://www.jetbrains.com/pycharm/)
 [![](https://img.shields.io/github/license/zerostwo/sicauer.svg)](https://github.com/zerostwo/sicauer/blob/master/LICENSE)
 ![](http://progressed.io/bar/19?title=Done)
 
-我的开发环境是基于`Ubuntu 18.04.1 LST`系统环境下的`Python 3.7.1`，IDE使用的`PyCharm Professional Edition`，在这个项目中我所使用的所有Python包及其版本号我都会记录在[`requirements.txt`](https://github.com/zerostwo/sicauer/blob/master/requirements.txt)文件中。可以使用以下命令批量安装我所使用的包：
+我的开发环境是基于`Ubuntu 18.04.4 LST`系统环境下的`Python 3.7.4`，IDE使用的`Vim`，在这个项目中我所使用的所有Python包及其版本号我都会记录在[`requirements.txt`](https://github.com/zerostwo/zzmath/blob/master/requirements.txt)文件中。可以使用以下命令批量安装我所使用的包：
 ```bash
-$ wget https://github.com/zerostwo/sicauer/blob/master/requirements.txt      
+$ wget https://github.com/zerostwo/zzmath/blob/master/requirements.txt      
 $ pip install -r requirement.txt
 ```
 ### 使用虚拟环境中的pip安装flask框架
@@ -25,8 +25,8 @@ $ sudo apt-get install python-virtualenv
 ```
 工具安装好以后，任意新建一个文件夹存放之后的所有文件。这里我新建一个名为`sicauer`的文件夹：
 ```bash
-$ mkdir sicauer
-$ cd sicauer
+$ mkdir zzmath
+$ cd zzmath
 ```
 进入新建文件夹后，使用`virtualenv`创建一个虚拟环境`venv`（通常虚拟环境都被命名为这个）：
 ```bash
