@@ -7,8 +7,8 @@
 基于Python的Web应用开发，冲鸭:grin:！
 ---
 [![](https://img.shields.io/badge/Ubuntu-18.04.1%20LTS-orange.svg)](https://www.ubuntu.com/download/desktop)
-[![](https://img.shields.io/badge/Python-3.7.1-blue.svg)](https://www.python.org/downloads/release/python-370/)
-[![](https://img.shields.io/badge/Flask-1.0.3-red.svg)](http://flask.pocoo.org/)
+[![](https://img.shields.io/badge/Python-3.7.4-blue.svg)](https://www.python.org/downloads/release/python-370/)
+[![](https://img.shields.io/badge/Flask-1.1.1-red.svg)](http://flask.pocoo.org/)
 [![](https://img.shields.io/badge/IDE-Pycharm-green.svg)](https://www.jetbrains.com/pycharm/)
 [![](https://img.shields.io/github/license/zerostwo/sicauer.svg)](https://github.com/zerostwo/sicauer/blob/master/LICENSE)
 ![](http://progressed.io/bar/19?title=Done)
