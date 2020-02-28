@@ -52,9 +52,6 @@ var _hmt = _hmt || [];
                     </li>
                     {% if current_user.is_authenticated and current_user.student_ID == '201702420' %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('main.one') }}">One</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="{{ url_for('users.info') }}">Face</a>
                         </li>
                     {% endif %}
