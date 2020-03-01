@@ -1,6 +1,6 @@
 import json
 
-with open('/etc/config.json') as config_file:
+with open('D:\Documents\Github\zzmath\config.json') as config_file:
     config = json.load(config_file)
 
 
