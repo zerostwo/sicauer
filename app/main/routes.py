@@ -39,8 +39,8 @@ def zhuanlan():
       authorUrls.append(df.loc[i+1, "authorUrl"])
       followers.append(format(df.loc[i+1, "followers"], '0,.0f'))
       articlesCounts.append(df.loc[i+1, "articlesCount"])
-      meanVoteupCounts.append(df.loc[i+1, "meanVoteupCount"])
-      meanCommentCounts.append(df.loc[i+1, "meanCommentCount"])
+      meanVoteupCounts.append(int(df.loc[i+1, "meanVoteupCount"]))
+      meanCommentCounts.append(int(df.loc[i+1, "meanCommentCount"]))
       columnScores.append(format(round(df.loc[i+1, "columnScore"], 2), '0,.0f'))
 
    return render_template('zhuanlan.html', 
