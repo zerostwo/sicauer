@@ -12,3 +12,4 @@ app/static/bqb/*
 app/static/videos/*
 app/static/one/*
 config.json
+site.db
