@@ -1,6 +1,6 @@
 var mSortingString = [];
-var disableSortingColumn = 0;
-mSortingString.push({ "bSortable": true, "aTargets": [disableSortingColumn] });
+var disableSortingColumn = 4;
+mSortingString.push({ "bSortable": false, "aTargets": [disableSortingColumn] });
 
 $(function() {
         var table = $('#example').dataTable({

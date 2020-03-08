@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?7755cea1ce3f2331435d9abccc484b42";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>{{ columnName }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/fonts/fontawesome-all.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Bootstrap-DataTables.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Footer-Basic.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/MUSA_no-more-tables-1.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/MUSA_no-more-tables.css' ) }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Aleo">
+    <link rel="icon" href="{{ url_for('static', filename = 'favicon.ico') }}" type="image/x-icon">
+</head>
+<body>
+<nav class="navbar navbar-light navbar-expand-md">
+    <div class="container-fluid"><a class="navbar-brand" href="https://zzmath.top">Zzmath</a>
+        <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse"
+             id="navcol-1">
+            <ul class="nav navbar-nav">
+                <li class="nav-item" role="presentation"><a class="nav-link active" href="https://zzmath.top">高考数学</a>
+                </li>
+                <li class="nav-item" role="presentation"></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="bootstrap_datatables">
+    <div class="container py-5">
+        <header class="text-center text-black">
+            <h1 class=""><a href="{{ columnUrl }}">{{ columnName }}</a></h1>
+                     <p class="text-primary m-0 font-weight-bold">创建者：<a href="{{ authorUrl }}">{{ authorName }}</a></p>
+        </header>
+        <div class="row py-5">
+            <div class="col-lg-12 mx-auto">
+                <div class="card rounded shadow border-0">
+                    <div class="card-body p-2 bg-white rounded">
+                        <div class="table-responsive">
+                            <table id="example" style="width:100%" class="table table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>标题</th>
+                                    <th>作者</th>
+                                    <th>赞同数</th>
+                                    <th>评论数</th>
+                                    <th>更新时间</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for i in index %}
+                                    <tr>
+                                        <td>{{ i }}</td>
+                                        <td><a href="{{ articleUrl[i-1] }}">{{ articleTitle[i-1] }}</a></td>
+                                        <td><a href="{{ articleAuthorUrl[i-1] }}">{{ articleAuthorName[i-1] }}</a></td>
+                                        <td>{{ articleVoteupCount[i-1] }}</td>
+                                        <td>{{ articleCommentCount[i-1] }}</td>
+                                        <td>{{ articleUpdatedTime[i-1] }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer-basic">
+    <footer>
+        <div class="social"><a href="https://www.zhihu.com/people/zerostwo"><i class="fab fa-zhihu"></i></a><a
+                href="https://weibo.com/u/3764641951"><i class="fab fa-weibo"></i></a><a
+                href="https://github.com/zerostwo"><i class="fab fa-github"></i></a><a
+                href="{{ url_for('static', filename='assets/img/zzmath.png') }}"><i class="fab fa-qq"></i></a></div>
+        <p class="copyright">Copyright © Zzmath 2020<br></p>
+    </footer>
+</div>
+<script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+<script src="{{ url_for('static', filename='assets/js/Bootstrap-DataTables.js') }}"></script>
+</body>
