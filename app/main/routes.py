@@ -94,7 +94,7 @@ def column(columnID):
        articleCommentCount.append(df.loc[i+1, "articleCommentCount"])    
        articleUpdatedTime.append(time.strftime("%Y/%m/%d", time.localtime(df.loc[i+1, "articleUpdatedTime"])))    
    
-   path = "app/static/zhuanlan/2020-03-04/math/math.xlsx"
+   path = "app/static/zhuanlan/2020-03-08/math/math.xlsx"
    columns = pd.read_excel(path, index_col=0)
 
    for i in range(len(columns)):
